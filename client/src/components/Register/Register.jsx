@@ -4,7 +4,7 @@ const userObject = {};
 
 const Register = () => {
   const [user, setUser] = useState(userObject);
-  const [register, setRegister] = useState(true);
+  const [register, setRegister] = useState(false);
 
   const changeHandler = (e) => {
     console.log(e.target);

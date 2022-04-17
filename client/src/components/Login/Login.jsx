@@ -17,8 +17,8 @@ const Login = () => {
   };
   return (
     <div>
-      {!register && <Register />}
-      {register && (
+      {register && <Register />}
+      {!register && (
         <>
           <form onSubmit={submitHandler}>
             <h1>Login</h1>
