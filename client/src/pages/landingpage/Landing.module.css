@@ -1,0 +1,45 @@
+.landingpage {
+  display: flex;
+
+  width: 100%;
+  height: 100vh;
+  background-color: #c24838;
+}
+.info {
+  flex-basis: 30%;
+  display: flex;
+  flex-direction: column;
+
+  height: 100%;
+
+  align-items: center;
+  justify-content: center;
+}
+.imgContainer {
+  flex-basis: 70%;
+  height: 100%;
+}
+.img {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+img {
+  /* background-color: #c9bfbf; */
+
+  height: 100%;
+  max-width: 80rem;
+  object-fit: cover;
+
+  /* border-radius: 50%; */
+}
+@media screen and (max-width: 850px) {
+  .imgContainer {
+    display: none;
+  }
+  .info {
+    flex-basis: 100%;
+    background-color: red;
+  }
+}
