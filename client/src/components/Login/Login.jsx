@@ -32,11 +32,11 @@ const Login = () => {
               <input type='password' />
             </label>
             <button>Login</button>
+            <p>
+              Do not have an account
+              <button onClick={toggleHandler}>Register here</button>
+            </p>
           </form>
-          <p>
-            Do not have an account
-            <button onClick={toggleHandler}>Register here</button>
-          </p>
         </>
       )}
     </div>
