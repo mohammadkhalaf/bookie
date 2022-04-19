@@ -1,0 +1,28 @@
+{
+  "name": "bookie",
+  "version": "1.0.0",
+  "description": "Reading tracker application built using MERN stack",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "start": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mohammadkhalaf/bookie.git"
+  },
+  "author": "Mohammad Khalaf",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mohammadkhalaf/bookie/issues"
+  },
+  "homepage": "https://github.com/mohammadkhalaf/bookie#readme",
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "mongoose": "^6.3.0"
+  }
+}
