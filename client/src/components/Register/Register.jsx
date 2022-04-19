@@ -3,17 +3,17 @@ import { useState } from 'react';
 import classes from './Register.module.css';
 import Input from '../Input/Input';
 import Alert from '../Alert/Alert';
+import { useAppContext } from '../../context/context';
 const userObject = {
   name: '',
   email: '',
   password: '',
   isRegistered: false,
-  alert: false,
 };
 
 const Register = () => {
   const [user, setUser] = useState(userObject);
-  const [register, setRegister] = useState(false);
+  const { isLoading, alert, displayAlert } = useAppContext();
 
   const changeHandler = (e) => {
     setUser((prev) => ({
@@ -23,7 +23,13 @@ const Register = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    console.log(user);
+    const { name, email, password, isRegistered } = user;
+    if (!password || !email || (!isRegistered && !name)) {
+      displayAlert();
+      return;
+    } else {
+      console.log(user);
+    }
   };
   const toggleHandler = () => {
     setUser({ ...user, isRegistered: !user.isRegistered });
@@ -33,7 +39,7 @@ const Register = () => {
       <>
         <form onSubmit={submitHandler}>
           <h1>{user.isRegistered ? 'Login' : 'Register'}</h1>
-          {user.alert && <Alert />}
+          {alert && <Alert />}
           {!user.isRegistered && (
             <Input
               style={classes.input}
