@@ -1,5 +1,7 @@
+import User from '../models/userModel.js';
 const register = async (req, res) => {
-  res.send('register');
+  const user = await User.create(req.body);
+  res.status(201).json(user);
 };
 
 const login = async (req, res) => {

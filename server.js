@@ -3,6 +3,8 @@ const app = express();
 import dotenv from 'dotenv';
 dotenv.config();
 
+import 'express-async-errors';
+
 //db
 import connectDB from './db/connect.js';
 //routes
@@ -22,7 +24,11 @@ app.use('/api/v1/books', booksRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
-connectDB(process.env.MONGO_URL);
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+connectDB();
+
+const startServer = async () => {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+};
+startServer();
