@@ -15,7 +15,7 @@ const userObject = {
 
 const Register = () => {
   const [values, setUser] = useState(userObject);
-  const { isLoading, alert, displayAlert, registerUser, user } =
+  const { isLoading, alert, displayAlert, registerUser, user, loginUser } =
     useAppContext();
   const navigate = useNavigate();
 
@@ -34,7 +34,7 @@ const Register = () => {
     }
     const currentUser = { name, email, password };
     if (isRegistered) {
-      console.log('you are already registered');
+      loginUser(currentUser);
     } else {
       registerUser(currentUser);
     }
@@ -87,15 +87,15 @@ const Register = () => {
           <button onClick={submitHandler} disabled={isLoading}>
             {!values.isRegistered ? 'Register' : 'Login'}
           </button>
-          <p>
-            {!values.isRegistered
-              ? 'Do you have an account?'
-              : 'Do not you have an account?'}
-            <button onClick={toggleHandler}>
-              {values.isRegistered ? 'Register' : 'Login'}
-            </button>
-          </p>
         </form>
+        <p>
+          {!values.isRegistered
+            ? 'Do you have an account?'
+            : 'Do not you have an account?'}
+          <button onClick={toggleHandler}>
+            {values.isRegistered ? 'Register' : 'Login'}
+          </button>
+        </p>
       </>
     </div>
   );

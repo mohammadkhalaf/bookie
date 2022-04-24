@@ -20,7 +20,26 @@ const register = async (req, res) => {
 };
 
 const login = async (req, res) => {
-  res.send('login');
+  const { email, password } = req.body;
+  if (!email || !password) {
+    res.status(400);
+
+    throw new Error('please provide all values');
+  }
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(401);
+    throw new Error('You are not registered yet !');
+  }
+  const isMatched = await user.comparePassword(password);
+  if (!isMatched) {
+    res.status(401);
+    throw new Error('Invalid Credentials!');
+  }
+  const token = user.createJWT();
+  user.password = undefined;
+
+  res.json({ user, token });
 };
 
 const updateUser = async (req, res) => {

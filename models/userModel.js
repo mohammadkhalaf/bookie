@@ -35,4 +35,8 @@ userSchema.methods.createJWT = function () {
     expiresIn: '1d',
   });
 };
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  const isMatched = await bcrypt.compare(enteredPassword, this.password);
+  return isMatched;
+};
 export default mongoose.model('User', userSchema);

@@ -7,6 +7,9 @@ import {
   USER_REGISTER,
   USER_REGISTER_FAIL,
   USER_REGISTER_SUCCESS,
+  USER_LOGIN,
+  USER_LOGIN_SUCCESS,
+  USER_LOGIN_FAIL,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -67,8 +70,28 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const loginUser = async (currentUser) => {
+    dispatch({ type: USER_LOGIN });
+    try {
+      const response = await axios.post('/api/v1/auth/login', currentUser);
+      const { user, token } = response.data;
+      dispatch({
+        type: USER_LOGIN_SUCCESS,
+        payload: { user, token },
+      });
+      setInLocalStorage(user, token);
+    } catch (error) {
+      dispatch({
+        type: USER_LOGIN_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
   return (
-    <AppContext.Provider value={{ ...state, displayAlert, registerUser }}>
+    <AppContext.Provider
+      value={{ ...state, displayAlert, registerUser, loginUser }}
+    >
       {children}
     </AppContext.Provider>
   );
