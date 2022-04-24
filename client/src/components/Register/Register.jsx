@@ -1,9 +1,11 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 import classes from './Register.module.css';
 import Input from '../Input/Input';
 import Alert from '../Alert/Alert';
 import { useAppContext } from '../../context/context';
+import { useNavigate } from 'react-router-dom';
+
 const userObject = {
   name: '',
   email: '',
@@ -12,8 +14,10 @@ const userObject = {
 };
 
 const Register = () => {
-  const [user, setUser] = useState(userObject);
-  const { isLoading, alert, displayAlert } = useAppContext();
+  const [values, setUser] = useState(userObject);
+  const { isLoading, alert, displayAlert, registerUser, user } =
+    useAppContext();
+  const navigate = useNavigate();
 
   const changeHandler = (e) => {
     setUser((prev) => ({
@@ -23,30 +27,42 @@ const Register = () => {
   };
   const submitHandler = (e) => {
     e.preventDefault();
-    const { name, email, password, isRegistered } = user;
+    const { name, email, password, isRegistered } = values;
     if (!password || !email || (!isRegistered && !name)) {
       displayAlert();
       return;
+    }
+    const currentUser = { name, email, password };
+    if (isRegistered) {
+      console.log('you are already registered');
     } else {
-      console.log(user);
+      registerUser(currentUser);
     }
   };
+  useEffect(() => {
+    if (user) {
+      setTimeout(() => {
+        navigate('/home');
+      }, 3000);
+    }
+  }, [user, navigate]);
+
   const toggleHandler = () => {
-    setUser({ ...user, isRegistered: !user.isRegistered });
+    setUser({ ...values, isRegistered: !values.isRegistered });
   };
   return (
     <div>
       <>
         <form onSubmit={submitHandler}>
-          <h1>{user.isRegistered ? 'Login' : 'Register'}</h1>
+          <h1>{values.isRegistered ? 'Login' : 'Register'}</h1>
           {alert && <Alert />}
-          {!user.isRegistered && (
+          {!values.isRegistered && (
             <Input
               style={classes.input}
               labelText='Name'
               name='name'
               changeHandler={changeHandler}
-              value={user.name}
+              value={values.name}
               type='text'
             />
           )}
@@ -55,7 +71,7 @@ const Register = () => {
             labelText='Email'
             name='email'
             changeHandler={changeHandler}
-            value={user.email}
+            value={values.email}
             type='email'
             style={classes.input}
           />
@@ -63,20 +79,20 @@ const Register = () => {
             labelText='Password'
             name='password'
             changeHandler={changeHandler}
-            value={user.password}
+            value={values.password}
             type='password'
             style={classes.input}
           />
 
-          <button onClick={submitHandler}>
-            {!user.isRegistered ? 'Register' : 'Login'}
+          <button onClick={submitHandler} disabled={isLoading}>
+            {!values.isRegistered ? 'Register' : 'Login'}
           </button>
           <p>
-            {!user.isRegistered
+            {!values.isRegistered
               ? 'Do you have an account?'
               : 'Do not you have an account?'}
             <button onClick={toggleHandler}>
-              {user.isRegistered ? 'Register' : 'Login'}
+              {values.isRegistered ? 'Register' : 'Login'}
             </button>
           </p>
         </form>

@@ -1,13 +1,24 @@
 import { useReducer, useContext } from 'react';
 import { createContext } from 'react';
 import { reducer } from './reducer';
-import { DISPLAY_ALERT, CLEAR_ALERT } from './actions';
+import {
+  DISPLAY_ALERT,
+  CLEAR_ALERT,
+  USER_REGISTER,
+  USER_REGISTER_FAIL,
+  USER_REGISTER_SUCCESS,
+} from './actions';
+import axios from 'axios';
+const token = localStorage.getItem('token');
+const user = localStorage.getItem('user');
 
 const initialState = {
   isLoading: false,
   alert: false,
   alertText: '',
   alertType: '',
+  user: user ? JSON.parse(user) : null,
+  token: token ? JSON.parse(token) : null,
 };
 const AppContext = createContext();
 
@@ -23,8 +34,41 @@ const AppProvider = ({ children }) => {
       dispatch({ type: CLEAR_ALERT });
     }, 2500);
   };
+
+  const setInLocalStorage = (user, token) => {
+    localStorage.setItem('user', JSON.stringify(user));
+    localStorage.setItem('token', JSON.stringify(token));
+  };
+  const removeFromLocalStorage = ({ user, token }) => {
+    localStorage.removeItem('user');
+    localStorage.removeItem('token');
+  };
+  const registerUser = async (currentUser) => {
+    dispatch({ type: USER_REGISTER });
+    try {
+      const response = await axios.post('/api/v1/auth/register', currentUser);
+      console.log(response);
+
+      const { user, token } = response.data;
+      console.log(token);
+      dispatch({
+        type: USER_REGISTER_SUCCESS,
+        payload: { user, token },
+      });
+
+      setInLocalStorage(user, token);
+    } catch (error) {
+      console.log(error.response);
+      dispatch({
+        type: USER_REGISTER_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
+
   return (
-    <AppContext.Provider value={{ ...state, displayAlert }}>
+    <AppContext.Provider value={{ ...state, displayAlert, registerUser }}>
       {children}
     </AppContext.Provider>
   );
