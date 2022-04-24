@@ -13,8 +13,10 @@ const register = async (req, res) => {
 
     throw new Error('Email is already registered');
   }
+
   const user = await User.create(req.body);
-  res.status(201).json(user);
+  const token = user.createJWT();
+  res.status(201).json({ user: { email: user.email, name: user.name }, token });
 };
 
 const login = async (req, res) => {

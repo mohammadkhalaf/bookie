@@ -1,13 +1,25 @@
 import classes from './Landing.module.css';
 import book from '../../assets/landingimg.png';
 import Register from '../../components/Register/Register';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const LandingPage = () => {
   const [register, setRegister] = useState(false);
   const RegisterHandler = () => {
     setRegister(!register);
   };
+  const getData = async () => {
+    try {
+      const res = await fetch('/test');
+      const data = await res.json();
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    getData();
+  }, []);
   return (
     <>
       {/* <nav className={classes.nav}>

@@ -16,8 +16,8 @@ import errorHandlerMiddleware from './middleware/errorHandler.js';
 app.use(express.json());
 
 const PORT = process.env.PORT || 5000;
-app.get('/', (req, res) => {
-  res.send('hello');
+app.get('/test', (req, res) => {
+  res.json({ name: 'mo' });
 });
 app.use('/api/v1/auth', authRouter);
 app.use('/api/v1/books', booksRouter);
