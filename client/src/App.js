@@ -4,14 +4,33 @@ import Homepage from './pages/Home/Homepage';
 import Error from './pages/Error/Error';
 
 import './App.css';
+import Bookstats from './pages/dashboard/bookstats/Bookstats';
+import AddBook from './pages/dashboard/addbook/AddBook';
+import IamReading from './pages/dashboard/IamReading/IamReading';
+import Profile from './pages/dashboard/Profile/Profile';
+import Layout from './pages/dashboard/Layout/Layout';
+import ProtectedRoute from './pages/ProtectedRoute';
 
 function App() {
   return (
     <div className='App'>
       <BrowserRouter>
         <Routes>
+          <Route
+            path='/dashboard'
+            element={
+              <ProtectedRoute>
+                <Layout />
+              </ProtectedRoute>
+            }
+          >
+            <Route index element={<IamReading />} />
+            <Route path='stats' element={<Bookstats />} />
+            <Route path='addbook' element={<AddBook />} />
+            <Route path='profile' element={<Profile />} />
+          </Route>
           <Route path='/' element={<LandingPage />} />
-          <Route path='/home' element={<Homepage />} />
+
           <Route path='*' element={<Error />} />
         </Routes>
       </BrowserRouter>
