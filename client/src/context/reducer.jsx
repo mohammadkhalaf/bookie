@@ -7,6 +7,7 @@ import {
   USER_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
+  USER_LOGOUT,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -75,6 +76,13 @@ export const reducer = (state, action) => {
       alert: true,
       alertType: 'danger',
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === USER_LOGOUT) {
+    return {
+      ...state,
+      user: null,
+      token: null,
     };
   }
   return state;

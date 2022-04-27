@@ -1,0 +1,9 @@
+.main {
+  background-color: magenta;
+  min-height: 100vh;
+  display: flex;
+}
+.nav {
+  background-color: lightblue;
+  flex-basis: 15%;
+}

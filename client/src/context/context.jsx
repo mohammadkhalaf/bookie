@@ -10,6 +10,7 @@ import {
   USER_LOGIN,
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
+  USER_LOGOUT,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -42,7 +43,7 @@ const AppProvider = ({ children }) => {
     localStorage.setItem('user', JSON.stringify(user));
     localStorage.setItem('token', JSON.stringify(token));
   };
-  const removeFromLocalStorage = ({ user, token }) => {
+  const removeFromLocalStorage = () => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
@@ -88,9 +89,13 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  const logOut = () => {
+    dispatch({ type: USER_LOGOUT });
+    removeFromLocalStorage();
+  };
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, registerUser, loginUser }}
+      value={{ ...state, displayAlert, registerUser, loginUser, logOut }}
     >
       {children}
     </AppContext.Provider>
