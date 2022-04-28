@@ -14,6 +14,7 @@ import booksRouter from './routes/bookRoutes.js';
 //middleware
 import notFoundMiddleware from './middleware/not-found.js';
 import errorHandlerMiddleware from './middleware/errorHandler.js';
+import authenticateUser from './middleware/auth.js';
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'));
@@ -25,7 +26,7 @@ app.get('/test', (req, res) => {
   res.json({ name: 'mo' });
 });
 app.use('/api/v1/auth', authRouter);
-app.use('/api/v1/books', booksRouter);
+app.use('/api/v1/books', authenticateUser, booksRouter);
 
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);

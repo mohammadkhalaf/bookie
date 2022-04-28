@@ -43,7 +43,22 @@ const login = async (req, res) => {
 };
 
 const updateUser = async (req, res) => {
-  res.send('update');
+  const { email, name } = req.body;
+  if (!email || !name) {
+    res.status(400);
+    throw new Error('Please provide all values');
+  }
+  const user = await User.findOne({ _id: req.user.userId });
+  if (!user) {
+    res.status(401);
+    throw new Error('You are not authorized');
+  }
+  user.email = email;
+  user.name = name;
+
+  await user.save();
+  const token = user.createJWT();
+  res.status(200).json({ user, token });
 };
 
 export { register, login, updateUser };
