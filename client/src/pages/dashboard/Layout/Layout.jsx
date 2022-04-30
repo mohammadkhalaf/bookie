@@ -4,7 +4,7 @@ import { useAppContext } from '../../../context/context';
 import classes from './layout.module.css';
 
 const Layout = () => {
-  const { logOut } = useAppContext();
+  const { logOut, user } = useAppContext();
   return (
     <>
       <main className={classes.main}>
@@ -12,6 +12,8 @@ const Layout = () => {
           <Link to='stats'>stats</Link>
           <Link to=''>iamreading</Link>
           <button onClick={logOut}>logout</button>
+
+          <h2>hello {user.name}</h2>
         </nav>
         <Outlet />
       </main>

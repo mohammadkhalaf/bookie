@@ -11,6 +11,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  UPDATE_USER,
+  UPDATE_USER_SUCCESS,
+  UPDATE_USER_FAIL,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -51,10 +54,9 @@ const AppProvider = ({ children }) => {
     dispatch({ type: USER_REGISTER });
     try {
       const response = await axios.post('/api/v1/auth/register', currentUser);
-      console.log(response);
 
       const { user, token } = response.data;
-      console.log(token);
+
       dispatch({
         type: USER_REGISTER_SUCCESS,
         payload: { user, token },
@@ -93,9 +95,41 @@ const AppProvider = ({ children }) => {
     dispatch({ type: USER_LOGOUT });
     removeFromLocalStorage();
   };
+  const updateUser = async (currentUser) => {
+    dispatch({ type: UPDATE_USER });
+    try {
+      const { data } = await axios.patch(
+        '/api/v1/auth/updateUser',
+        currentUser,
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      const { user, token } = data;
+      dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
+      setInLocalStorage(user, token);
+    } catch (error) {
+      console.log(error);
+
+      dispatch({
+        type: UPDATE_USER_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
   return (
     <AppContext.Provider
-      value={{ ...state, displayAlert, registerUser, loginUser, logOut }}
+      value={{
+        ...state,
+        displayAlert,
+        registerUser,
+        loginUser,
+        logOut,
+        updateUser,
+      }}
     >
       {children}
     </AppContext.Provider>

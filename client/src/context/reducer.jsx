@@ -8,6 +8,9 @@ import {
   USER_LOGIN_SUCCESS,
   USER_LOGIN_FAIL,
   USER_LOGOUT,
+  UPDATE_USER,
+  UPDATE_USER_FAIL,
+  UPDATE_USER_SUCCESS,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -83,6 +86,31 @@ export const reducer = (state, action) => {
       ...state,
       user: null,
       token: null,
+    };
+  }
+  if (action.type === UPDATE_USER) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === UPDATE_USER_SUCCESS) {
+    return {
+      ...state,
+      user: action.payload.user,
+      token: action.payload.token,
+      alert: true,
+      alertText: 'Profile updated',
+      alertType: 'success',
+    };
+  }
+  if (action.type === UPDATE_USER_FAIL) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertText: action.payload.msg,
+      alertType: 'danger',
     };
   }
   return state;
