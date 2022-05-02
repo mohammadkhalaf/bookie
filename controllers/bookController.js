@@ -1,5 +1,15 @@
+import Book from '../models/bookModel.js';
 const createBook = async (req, res) => {
-  res.send('create book');
+  const { title, pages } = req.body;
+  console.log(req.body);
+
+  if (!title || !pages) {
+    res.status(400);
+    throw new Error('Please provide all values');
+  }
+  req.body.createdBy = req.user.userId;
+  const book = await Book.create(req.body);
+  res.status(201).json({ book });
 };
 const updateBook = async (req, res) => {
   res.send('update book');
