@@ -14,6 +14,11 @@ import {
   UPDATE_USER,
   UPDATE_USER_SUCCESS,
   UPDATE_USER_FAIL,
+  HANDEL_CHANGE,
+  CLEAR_FIELDS,
+  CREATE_BOOK,
+  CREATE_BOOK_FAIL,
+  CREATE_BOOK_SUCCESS,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -26,6 +31,17 @@ const initialState = {
   alertType: '',
   user: user ? JSON.parse(user) : null,
   token: token ? JSON.parse(token) : null,
+  title: '',
+  author: '',
+
+  genre: ['fiction', 'nonfiction'],
+  pages: '',
+  hasRead: 0,
+  cover: '',
+  createdBy: '',
+  isEdited: false,
+  isOngoing: false,
+  editBookId: '',
 };
 const AppContext = createContext();
 
@@ -120,6 +136,47 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  const handleChange = (name, value) => {
+    dispatch({ type: HANDEL_CHANGE, payload: { name, value } });
+  };
+  const clearInputs = () => {
+    dispatch({ type: CLEAR_FIELDS });
+  };
+  const createBook = async () => {
+    dispatch({ type: CREATE_BOOK });
+    try {
+      const { title, author, pages, hasRead, isOngoing, cover, genre, token } =
+        state;
+      await axios.post(
+        '/api/v1/books',
+        {
+          title,
+          author,
+          // hasRead,
+          pages,
+          // cover,
+          // genre,
+          // isOngoing,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+
+      dispatch({ type: CREATE_BOOK_SUCCESS });
+    } catch (error) {
+      if (error.response.status === 401) {
+        return;
+      }
+      dispatch({
+        type: CREATE_BOOK_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
   return (
     <AppContext.Provider
       value={{
@@ -129,6 +186,9 @@ const AppProvider = ({ children }) => {
         loginUser,
         logOut,
         updateUser,
+        handleChange,
+        clearInputs,
+        createBook,
       }}
     >
       {children}

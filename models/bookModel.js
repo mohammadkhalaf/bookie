@@ -16,9 +16,6 @@ const BookSchema = new mongoose.Schema(
       maxlength: '30',
       trim: true,
     },
-    status: {
-      enum: ['ongoing', 'completed'],
-    },
 
     genre: {
       enum: ['fiction', 'nonfiction'],
@@ -32,13 +29,14 @@ const BookSchema = new mongoose.Schema(
     },
     cover: {
       type: String,
-      default: 'img url',
+      default: '',
     },
     createdBy: {
       type: mongoose.Types.ObjectId,
       ref: 'User',
       required: [true, 'Please provide user '],
     },
+    isReading: false,
   },
   {
     timestamps: true,

@@ -11,6 +11,11 @@ import {
   UPDATE_USER,
   UPDATE_USER_FAIL,
   UPDATE_USER_SUCCESS,
+  HANDEL_CHANGE,
+  CLEAR_FIELDS,
+  CREATE_BOOK,
+  CREATE_BOOK_FAIL,
+  CREATE_BOOK_SUCCESS,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -94,6 +99,26 @@ export const reducer = (state, action) => {
       isLoading: true,
     };
   }
+  if (action.type === CLEAR_FIELDS) {
+    const initialState = {
+      title: '',
+
+      author: '',
+      editBookId: '',
+      status: 'read now',
+
+      pages: '',
+      hasRead: 0,
+      cover: '',
+      createdBy: '',
+      isEdited: false,
+      isOngoing: false,
+    };
+    return {
+      ...state,
+      ...initialState,
+    };
+  }
   if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
@@ -111,6 +136,46 @@ export const reducer = (state, action) => {
       alert: true,
       alertText: action.payload.msg,
       alertType: 'danger',
+    };
+  }
+  if (action.type === UPDATE_USER_FAIL) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertText: action.payload.msg,
+      alertType: 'danger',
+    };
+  }
+  if (action.type === HANDEL_CHANGE) {
+    return {
+      ...state,
+      [action.payload.name]: action.payload.value,
+      isOngoing: true,
+    };
+  }
+  if (action.type === CREATE_BOOK) {
+    return {
+      ...state,
+      IsLoading: true,
+    };
+  }
+  if (action.type === CREATE_BOOK_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertType: 'success',
+      alertText: 'new book added',
+    };
+  }
+  if (action.type === CREATE_BOOK_FAIL) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
     };
   }
   return state;

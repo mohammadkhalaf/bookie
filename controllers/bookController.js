@@ -1,7 +1,6 @@
 import Book from '../models/bookModel.js';
 const createBook = async (req, res) => {
   const { title, pages } = req.body;
-  console.log(req.body);
 
   if (!title || !pages) {
     res.status(400);
@@ -9,7 +8,7 @@ const createBook = async (req, res) => {
   }
   req.body.createdBy = req.user.userId;
   const book = await Book.create(req.body);
-  res.status(201).json({ book });
+  res.status(201).json(book);
 };
 const updateBook = async (req, res) => {
   res.send('update book');

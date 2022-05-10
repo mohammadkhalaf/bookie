@@ -7,8 +7,10 @@ const auth = async (req, res, next) => {
     throw new Error('You are not authorized');
   }
   const token = authHeader.split(' ')[1];
+  console.log(token);
   try {
     var decoded = jwt.verify(token, process.env.SECRET_TOKEN);
+    console.log(decoded);
 
     req.user = { userId: decoded.userID };
   } catch (error) {
