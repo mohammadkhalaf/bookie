@@ -151,22 +151,23 @@ export const reducer = (state, action) => {
     return {
       ...state,
       [action.payload.name]: action.payload.value,
-      isOngoing: true,
     };
   }
   if (action.type === CREATE_BOOK) {
     return {
       ...state,
-      IsLoading: true,
+      isLoading: true,
     };
   }
   if (action.type === CREATE_BOOK_SUCCESS) {
     return {
       ...state,
-      isLoading: false,
-      alert: true,
-      alertType: 'success',
-      alertText: 'new book added',
+      isReading: action.payload,
+
+      // isLoading: false,
+      // alert: true,
+      // alertType: 'success',
+      // alertText: 'new book added',
     };
   }
   if (action.type === CREATE_BOOK_FAIL) {

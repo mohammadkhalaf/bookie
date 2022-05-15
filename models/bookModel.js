@@ -18,7 +18,9 @@ const BookSchema = new mongoose.Schema(
     },
 
     genre: {
+      type: String,
       enum: ['fiction', 'nonfiction'],
+      default: 'nonfiction',
     },
     pages: {
       type: Number,

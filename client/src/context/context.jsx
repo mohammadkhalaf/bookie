@@ -34,19 +34,21 @@ const initialState = {
   title: '',
   author: '',
 
-  genre: ['fiction', 'nonfiction'],
+  types: ['fiction', 'nonfiction'],
+  genre: 'nonfiction',
   pages: '',
   hasRead: 0,
-  cover: '',
+
   createdBy: '',
   isEdited: false,
-  isOngoing: false,
+  isReading: false,
   editBookId: '',
 };
 const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const apikey = 'AIzaSyD0cFeDaX-AFKkqhaIOoZcQC2gjQ077qQ8';
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
@@ -142,21 +144,35 @@ const AppProvider = ({ children }) => {
   const clearInputs = () => {
     dispatch({ type: CLEAR_FIELDS });
   };
+
+  // const bookCover = async (title) => {
+  //   try {
+  //     const response = await axios.get(
+  //       `https://www.googleapis.com/books/v1/volumes?q=${title}+:keyes&key=AIzaSyD0cFeDaX-AFKkqhaIOoZcQC2gjQ077qQ8`
+  //     );
+  //     // await fetch`googleapis.com/books/v1/volumes?q=flowers+:keyes&key=${api}`;
+  //     const data = response.data;
+  //     console.log(data.items[0]?.volumeInfo?.imageLinks?.thumbnail);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   const createBook = async () => {
     dispatch({ type: CREATE_BOOK });
     try {
-      const { title, author, pages, hasRead, isOngoing, cover, genre, token } =
-        state;
+      dispatch({ type: CREATE_BOOK_SUCCESS });
+      const { title, author, pages, hasRead, genre } = state;
       await axios.post(
         '/api/v1/books',
         {
           title,
           author,
-          // hasRead,
+          hasRead,
           pages,
-          // cover,
-          // genre,
-          // isOngoing,
+          genre,
+
+          isReading: true,
         },
         {
           headers: {
@@ -166,16 +182,38 @@ const AppProvider = ({ children }) => {
       );
 
       dispatch({ type: CREATE_BOOK_SUCCESS });
-    } catch (error) {
-      if (error.response.status === 401) {
-        return;
-      }
-      dispatch({
-        type: CREATE_BOOK_FAIL,
-        payload: { msg: error.response.data.msg },
-      });
-    }
-    clearAlert();
+    } catch (error) {}
+    // dispatch({ type: CREATE_BOOK });
+    // try {
+    //   const { title, author, pages, hasRead, isReading, cover, genre } = state;
+    //   bookCover(title);
+    //   await axios.post(
+    //     '/api/v1/books',
+    //     {
+    //       title,
+    //       author,
+    //       hasRead,
+    //       pages,
+    //       genre,
+    //       isReading,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${state.token}`,
+    //       },
+    //     }
+    //   );
+    //   dispatch({ type: CREATE_BOOK_SUCCESS });
+    // } catch (error) {
+    //   if (error.response.status === 401) {
+    //     return;
+    //   }
+    //   dispatch({
+    //     type: CREATE_BOOK_FAIL,
+    //     payload: { msg: error.response.data.msg },
+    //   });
+    // }
+    // clearAlert();
   };
   return (
     <AppContext.Provider

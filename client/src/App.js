@@ -10,6 +10,7 @@ import IamReading from './pages/dashboard/IamReading/IamReading';
 import Profile from './pages/dashboard/Profile/Profile';
 import Layout from './pages/dashboard/Layout/Layout';
 import ProtectedRoute from './pages/ProtectedRoute';
+import { useAppContext } from './context/context';
 
 function App() {
   return (

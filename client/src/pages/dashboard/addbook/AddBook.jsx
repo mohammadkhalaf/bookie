@@ -18,12 +18,12 @@ const AddBook = () => {
     displayAlert,
     clearInputs,
     createBook,
+    types,
   } = useAppContext();
 
   const changeHandler = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-    console.log(name, value);
 
     handleChange(name, value);
   };
@@ -71,6 +71,15 @@ const AddBook = () => {
             onChange={changeHandler}
           />
         </label>
+        <select onChange={changeHandler} value={genre} name='genre'>
+          {types.map((g, index) => {
+            return (
+              <option value={g} key={index} name={g}>
+                {g}
+              </option>
+            );
+          })}
+        </select>
         <button>Submit</button>
       </form>
     </div>
