@@ -15,3 +15,6 @@ export const CLEAR_FIELDS = 'CLEAR_FIELDS ';
 export const CREATE_BOOK = 'CREATE_BOOK';
 export const CREATE_BOOK_SUCCESS = 'CREATE_BOOK_SUCCESS';
 export const CREATE_BOOK_FAIL = 'CREATE_BOOK_FAIL';
+export const GET_BOOKS = 'GET_BOOKS';
+export const GET_BOOKS_SUCCESS = 'GET_BOOKS_SUCCESS';
+export const GET_BOOKS_FAIL = 'GET_BOOKS_FAIL';

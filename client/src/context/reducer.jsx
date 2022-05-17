@@ -16,6 +16,9 @@ import {
   CREATE_BOOK,
   CREATE_BOOK_FAIL,
   CREATE_BOOK_SUCCESS,
+  GET_BOOKS,
+  GET_BOOKS_FAIL,
+  GET_BOOKS_SUCCESS,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -177,6 +180,21 @@ export const reducer = (state, action) => {
       alert: true,
       alertType: 'danger',
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === GET_BOOKS) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === GET_BOOKS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      books: action.payload.books,
+      totalBooks: action.payload.totalBooks,
+      numOfPages: action.payload.numOfPages,
     };
   }
   return state;

@@ -1,4 +1,4 @@
-import { useReducer, useContext } from 'react';
+import { useReducer, useContext, useEffect } from 'react';
 import { createContext } from 'react';
 import { reducer } from './reducer';
 import {
@@ -19,6 +19,9 @@ import {
   CREATE_BOOK,
   CREATE_BOOK_FAIL,
   CREATE_BOOK_SUCCESS,
+  GET_BOOKS,
+  GET_BOOKS_FAIL,
+  GET_BOOKS_SUCCESS,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -43,6 +46,10 @@ const initialState = {
   isEdited: false,
   isReading: false,
   editBookId: '',
+  books: [],
+  totalBooks: 0,
+  numOfPages: 1,
+  page: 1,
 };
 const AppContext = createContext();
 
@@ -162,7 +169,7 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CREATE_BOOK });
     try {
       dispatch({ type: CREATE_BOOK_SUCCESS });
-      const { title, author, pages, hasRead, genre } = state;
+      const { title, author, pages, hasRead, genre, isReading } = state;
       await axios.post(
         '/api/v1/books',
         {
@@ -171,8 +178,7 @@ const AppProvider = ({ children }) => {
           hasRead,
           pages,
           genre,
-
-          isReading: true,
+          isReading,
         },
         {
           headers: {
@@ -215,6 +221,27 @@ const AppProvider = ({ children }) => {
     // }
     // clearAlert();
   };
+
+  const getAllBooks = async () => {
+    dispatch({ type: GET_BOOKS });
+    try {
+      const { data } = await axios.get(
+        '/api/v1/books',
+
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+
+      dispatch({ type: GET_BOOKS_SUCCESS, payload: { books: data } });
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -227,6 +254,7 @@ const AppProvider = ({ children }) => {
         handleChange,
         clearInputs,
         createBook,
+        getAllBooks,
       }}
     >
       {children}

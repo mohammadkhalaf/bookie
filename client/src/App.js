@@ -7,10 +7,10 @@ import './App.css';
 import Bookstats from './pages/dashboard/bookstats/Bookstats';
 import AddBook from './pages/dashboard/addbook/AddBook';
 import IamReading from './pages/dashboard/IamReading/IamReading';
+import AllBooks from './pages/dashboard/AllBooks/AllBooks';
 import Profile from './pages/dashboard/Profile/Profile';
 import Layout from './pages/dashboard/Layout/Layout';
 import ProtectedRoute from './pages/ProtectedRoute';
-import { useAppContext } from './context/context';
 
 function App() {
   return (
@@ -27,6 +27,7 @@ function App() {
           >
             <Route index element={<IamReading />} />
             <Route path='stats' element={<Bookstats />} />
+            <Route path='allbooks' element={<AllBooks />} />
             <Route path='addbook' element={<AddBook />} />
             <Route path='profile' element={<Profile />} />
           </Route>

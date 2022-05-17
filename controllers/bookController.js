@@ -19,7 +19,8 @@ const deleteBook = async (req, res) => {
 };
 
 const getAllBooks = async (req, res) => {
-  res.send('get all books');
+  const books = await Book.find({ createdBy: req.user.userId });
+  res.status(200).json(books);
 };
 const getBooksStats = async (req, res) => {
   res.send('get stats');
