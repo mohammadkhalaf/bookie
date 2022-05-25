@@ -5,8 +5,10 @@ import SearchContainer from '../../../components/searchContainer/SearchContainer
 const AllBooks = () => {
   return (
     <>
-      <SearchContainer />
-      <BooksContainer />
+      <div>
+        <SearchContainer />
+        <BooksContainer />
+      </div>
     </>
   );
 };

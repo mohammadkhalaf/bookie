@@ -1,5 +1,5 @@
 .main {
-  background-color: magenta;
+  background-color: rgb(212, 173, 212);
   min-height: 100vh;
   display: flex;
 }

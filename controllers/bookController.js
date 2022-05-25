@@ -11,7 +11,19 @@ const createBook = async (req, res) => {
   res.status(201).json(book);
 };
 const updateBook = async (req, res) => {
-  res.send('update book');
+  const { id } = req.body;
+  console.log(req.body);
+
+  const book = await Book.findOne({ _id: id });
+  if (!book) {
+    throw new Error('The book can not be found');
+  }
+  const updatedBook = await Book.findByIdAndUpdate({ _id: id }, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.status(200).send(updatedBook);
 };
 
 const deleteBook = async (req, res) => {

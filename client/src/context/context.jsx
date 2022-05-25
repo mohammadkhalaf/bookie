@@ -22,6 +22,11 @@ import {
   GET_BOOKS,
   GET_BOOKS_FAIL,
   GET_BOOKS_SUCCESS,
+  START_READING,
+  START_READING_FAIL,
+  START_READING_SUCCESS,
+  UPDATE_BOOK,
+  UPDATE_BOOK_SUCCESS,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -41,10 +46,11 @@ const initialState = {
   genre: 'nonfiction',
   pages: '',
   hasRead: 0,
+  isReading: false,
 
   createdBy: '',
   isEdited: false,
-  isReading: false,
+
   editBookId: '',
   books: [],
   totalBooks: 0,
@@ -55,11 +61,9 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const apikey = 'AIzaSyD0cFeDaX-AFKkqhaIOoZcQC2gjQ077qQ8';
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
-    clearAlert();
   };
   const clearAlert = () => {
     setTimeout(() => {
@@ -89,7 +93,6 @@ const AppProvider = ({ children }) => {
 
       setInLocalStorage(user, token);
     } catch (error) {
-      console.log(error.response);
       dispatch({
         type: USER_REGISTER_FAIL,
         payload: { msg: error.response.data.msg },
@@ -103,6 +106,7 @@ const AppProvider = ({ children }) => {
     try {
       const response = await axios.post('/api/v1/auth/login', currentUser);
       const { user, token } = response.data;
+
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: { user, token },
@@ -121,10 +125,11 @@ const AppProvider = ({ children }) => {
     removeFromLocalStorage();
   };
   const updateUser = async (currentUser) => {
+    console.log(currentUser);
     dispatch({ type: UPDATE_USER });
     try {
       const { data } = await axios.patch(
-        '/api/v1/auth/updateUser',
+        '/api/v1/auth/updateuser',
         currentUser,
         {
           headers: {
@@ -132,12 +137,14 @@ const AppProvider = ({ children }) => {
           },
         }
       );
+
       const { user, token } = data;
+      console.log(user);
+      // // console.log(user);
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       setInLocalStorage(user, token);
     } catch (error) {
       console.log(error);
-
       dispatch({
         type: UPDATE_USER_FAIL,
         payload: { msg: error.response.data.msg },
@@ -145,6 +152,7 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
+  console.log(user);
   const handleChange = (name, value) => {
     dispatch({ type: HANDEL_CHANGE, payload: { name, value } });
   };
@@ -168,8 +176,7 @@ const AppProvider = ({ children }) => {
   const createBook = async () => {
     dispatch({ type: CREATE_BOOK });
     try {
-      dispatch({ type: CREATE_BOOK_SUCCESS });
-      const { title, author, pages, hasRead, genre, isReading } = state;
+      const { title, author, pages, hasRead, genre } = state;
       await axios.post(
         '/api/v1/books',
         {
@@ -178,7 +185,6 @@ const AppProvider = ({ children }) => {
           hasRead,
           pages,
           genre,
-          isReading,
         },
         {
           headers: {
@@ -236,10 +242,56 @@ const AppProvider = ({ children }) => {
       );
 
       dispatch({ type: GET_BOOKS_SUCCESS, payload: { books: data } });
-      console.log(data);
     } catch (error) {
       console.log(error);
     }
+  };
+  const startReading = async (id) => {
+    console.log(id);
+    dispatch({ type: START_READING });
+    try {
+      const { data } = await axios.patch(
+        `/api/v1/books`,
+        {
+          id: id,
+          isReading: true,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      const { isReading, _id } = data;
+      console.log(_id, isReading);
+
+      dispatch({ type: START_READING_SUCCESS, payload: { isReading, _id } });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: START_READING_FAIL });
+    }
+  };
+  const updatePages = async (id) => {
+    // console.log(id);
+    // dispatch({ type: START_READING });
+    // try {
+    //   const { data } = await axios.patch(
+    //     `/api/v1/books/${id}`,
+    //     {
+    //       isReading: true,
+    //     },
+    //     {
+    //       headers: {
+    //         Authorization: `Bearer ${state.token}`,
+    //       },
+    //     }
+    //   );
+    //   console.log(data);
+    //   dispatch({ type: START_READING_SUCCESS });
+    // } catch (error) {
+    //   console.log(error);
+    //   dispatch({ type: START_READING_FAIL });
+    // }
   };
 
   return (
@@ -255,6 +307,7 @@ const AppProvider = ({ children }) => {
         clearInputs,
         createBook,
         getAllBooks,
+        startReading,
       }}
     >
       {children}

@@ -9,8 +9,13 @@ import {
   updateBook,
 } from '../controllers/bookController.js';
 
-router.route('/').post(createBook).get(getAllBooks);
+router
+  .route('/')
+  .post(createBook)
+  .get(getAllBooks)
+  .delete(deleteBook)
+  .patch(updateBook);
 router.route('/stats').get(getBooksStats);
-router.route('/:id').delete(deleteBook).patch(updateBook);
+// router.route('/:id')
 
 export default router;

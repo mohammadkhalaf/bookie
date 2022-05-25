@@ -19,6 +19,8 @@ import {
   GET_BOOKS,
   GET_BOOKS_FAIL,
   GET_BOOKS_SUCCESS,
+  START_READING_SUCCESS,
+  START_READING,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -96,12 +98,7 @@ export const reducer = (state, action) => {
       token: null,
     };
   }
-  if (action.type === UPDATE_USER) {
-    return {
-      ...state,
-      isLoading: true,
-    };
-  }
+
   if (action.type === CLEAR_FIELDS) {
     const initialState = {
       title: '',
@@ -122,9 +119,16 @@ export const reducer = (state, action) => {
       ...initialState,
     };
   }
+    if (action.type === UPDATE_USER) {
+      return {
+        ...state,
+        isLoading: true,
+      };
+    }
   if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
+      isLoading: false,
       user: action.payload.user,
       token: action.payload.token,
       alert: true,
@@ -167,10 +171,10 @@ export const reducer = (state, action) => {
       ...state,
       isReading: action.payload,
 
-      // isLoading: false,
-      // alert: true,
-      // alertType: 'success',
-      // alertText: 'new book added',
+      isLoading: false,
+      alert: true,
+      alertType: 'success',
+      alertText: 'new book added',
     };
   }
   if (action.type === CREATE_BOOK_FAIL) {
@@ -195,6 +199,18 @@ export const reducer = (state, action) => {
       books: action.payload.books,
       totalBooks: action.payload.totalBooks,
       numOfPages: action.payload.numOfPages,
+    };
+  }
+  if (action.type === START_READING) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === START_READING_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
     };
   }
   return state;
