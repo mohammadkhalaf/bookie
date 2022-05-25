@@ -39,6 +39,7 @@ const BookSchema = new mongoose.Schema(
       required: [true, 'Please provide user '],
     },
     isReading: {
+      type: Boolean,
       default: false,
     },
   },

@@ -64,6 +64,7 @@ const AppProvider = ({ children }) => {
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
+    clearAlert();
   };
   const clearAlert = () => {
     setTimeout(() => {
@@ -152,7 +153,7 @@ const AppProvider = ({ children }) => {
     }
     clearAlert();
   };
-  console.log(user);
+
   const handleChange = (name, value) => {
     dispatch({ type: HANDEL_CHANGE, payload: { name, value } });
   };
@@ -160,23 +161,10 @@ const AppProvider = ({ children }) => {
     dispatch({ type: CLEAR_FIELDS });
   };
 
-  // const bookCover = async (title) => {
-  //   try {
-  //     const response = await axios.get(
-  //       `https://www.googleapis.com/books/v1/volumes?q=${title}+:keyes&key=AIzaSyD0cFeDaX-AFKkqhaIOoZcQC2gjQ077qQ8`
-  //     );
-  //     // await fetch`googleapis.com/books/v1/volumes?q=flowers+:keyes&key=${api}`;
-  //     const data = response.data;
-  //     console.log(data.items[0]?.volumeInfo?.imageLinks?.thumbnail);
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const createBook = async () => {
     dispatch({ type: CREATE_BOOK });
     try {
-      const { title, author, pages, hasRead, genre } = state;
+      const { title, author, pages, hasRead, genre, isReading } = state;
       await axios.post(
         '/api/v1/books',
         {
@@ -185,6 +173,7 @@ const AppProvider = ({ children }) => {
           hasRead,
           pages,
           genre,
+          isReading,
         },
         {
           headers: {
@@ -194,38 +183,10 @@ const AppProvider = ({ children }) => {
       );
 
       dispatch({ type: CREATE_BOOK_SUCCESS });
-    } catch (error) {}
-    // dispatch({ type: CREATE_BOOK });
-    // try {
-    //   const { title, author, pages, hasRead, isReading, cover, genre } = state;
-    //   bookCover(title);
-    //   await axios.post(
-    //     '/api/v1/books',
-    //     {
-    //       title,
-    //       author,
-    //       hasRead,
-    //       pages,
-    //       genre,
-    //       isReading,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${state.token}`,
-    //       },
-    //     }
-    //   );
-    //   dispatch({ type: CREATE_BOOK_SUCCESS });
-    // } catch (error) {
-    //   if (error.response.status === 401) {
-    //     return;
-    //   }
-    //   dispatch({
-    //     type: CREATE_BOOK_FAIL,
-    //     payload: { msg: error.response.data.msg },
-    //   });
-    // }
-    // clearAlert();
+    } catch (error) {
+      console.log(error);
+    }
+    clearAlert();
   };
 
   const getAllBooks = async () => {
@@ -270,6 +231,7 @@ const AppProvider = ({ children }) => {
       console.log(error);
       dispatch({ type: START_READING_FAIL });
     }
+    getAllBooks();
   };
   const updatePages = async (id) => {
     // console.log(id);

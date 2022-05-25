@@ -5,10 +5,10 @@ import classes from './Book.module.css';
 import { useAppContext } from '../../context/context';
 
 const Book = ({ title, createdAt, _id, isReading }) => {
-  const { startReading, isLoading } = useAppContext();
+  const { startReading, isLoading, getAllBooks } = useAppContext();
   const date = moment(createdAt).format('MMM Do YY');
+  useEffect(() => {}, [startReading]);
 
-  console.log(isLoading);
   return (
     <>
       <div className={classes.book}>
