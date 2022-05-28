@@ -119,12 +119,12 @@ export const reducer = (state, action) => {
       ...initialState,
     };
   }
-    if (action.type === UPDATE_USER) {
-      return {
-        ...state,
-        isLoading: true,
-      };
-    }
+  if (action.type === UPDATE_USER) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
   if (action.type === UPDATE_USER_SUCCESS) {
     return {
       ...state,
@@ -211,6 +211,8 @@ export const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
+      isReading: true,
+      test: action.payload,
     };
   }
   return state;

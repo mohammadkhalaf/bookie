@@ -47,6 +47,7 @@ const initialState = {
   pages: '',
   hasRead: 0,
   isReading: false,
+  test: 0,
 
   createdBy: '',
   isEdited: false,
@@ -80,6 +81,7 @@ const AppProvider = ({ children }) => {
     localStorage.removeItem('user');
     localStorage.removeItem('token');
   };
+
   const registerUser = async (currentUser) => {
     dispatch({ type: USER_REGISTER });
     try {
@@ -208,10 +210,9 @@ const AppProvider = ({ children }) => {
     }
   };
   const startReading = async (id) => {
-    console.log(id);
     dispatch({ type: START_READING });
     try {
-      const { data } = await axios.patch(
+      await axios.patch(
         `/api/v1/books`,
         {
           id: id,
@@ -223,37 +224,38 @@ const AppProvider = ({ children }) => {
           },
         }
       );
-      const { isReading, _id } = data;
-      console.log(_id, isReading);
 
-      dispatch({ type: START_READING_SUCCESS, payload: { isReading, _id } });
+      dispatch({ type: START_READING_SUCCESS });
+    } catch (error) {
+      console.log(error);
+      dispatch({ type: START_READING_FAIL });
+    }
+    // getAllBooks();
+  };
+  const updateReadPages = async (pages, id) => {
+    console.log(pages, id);
+    dispatch({ type: START_READING });
+    try {
+      const { data } = await axios.patch(
+        `/api/v1/books/`,
+        {
+          id,
+          hasRead: pages,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      const { hasRead } = data;
+      console.log(hasRead);
+      dispatch({ type: START_READING_SUCCESS, payload: hasRead });
     } catch (error) {
       console.log(error);
       dispatch({ type: START_READING_FAIL });
     }
     getAllBooks();
-  };
-  const updatePages = async (id) => {
-    // console.log(id);
-    // dispatch({ type: START_READING });
-    // try {
-    //   const { data } = await axios.patch(
-    //     `/api/v1/books/${id}`,
-    //     {
-    //       isReading: true,
-    //     },
-    //     {
-    //       headers: {
-    //         Authorization: `Bearer ${state.token}`,
-    //       },
-    //     }
-    //   );
-    //   console.log(data);
-    //   dispatch({ type: START_READING_SUCCESS });
-    // } catch (error) {
-    //   console.log(error);
-    //   dispatch({ type: START_READING_FAIL });
-    // }
   };
 
   return (
@@ -270,6 +272,7 @@ const AppProvider = ({ children }) => {
         createBook,
         getAllBooks,
         startReading,
+        updateReadPages,
       }}
     >
       {children}

@@ -12,6 +12,7 @@ const createBook = async (req, res) => {
 };
 const updateBook = async (req, res) => {
   const { id } = req.body;
+  console.log(id);
   console.log(req.body);
 
   const book = await Book.findOne({ _id: id });
