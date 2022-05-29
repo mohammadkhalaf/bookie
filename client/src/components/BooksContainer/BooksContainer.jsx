@@ -4,7 +4,7 @@ import Book from '../Book/Book';
 import { useAppContext } from '../../context/context';
 
 const BooksContainer = () => {
-  const { getAllBooks, books, isLoading } = useAppContext();
+  const { getAllBooks, books, isLoading, alert, alertText } = useAppContext();
 
   useEffect(() => {
     getAllBooks();
@@ -17,7 +17,8 @@ const BooksContainer = () => {
   }
   return (
     <>
-      <h2>{books.length}</h2>
+      {alert && alertText}
+
       <div>
         {books.map((book) => {
           return <Book key={book._id} {...book} />;

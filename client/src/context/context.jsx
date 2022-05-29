@@ -1,4 +1,4 @@
-import { useReducer, useContext, useEffect } from 'react';
+import { useReducer, useContext } from 'react';
 import { createContext } from 'react';
 import { reducer } from './reducer';
 import {
@@ -27,6 +27,9 @@ import {
   START_READING_SUCCESS,
   UPDATE_BOOK,
   UPDATE_BOOK_SUCCESS,
+  DELETE_BOOK,
+  DELETE_BOOK_FAIL,
+  DELETE_BOOK_SUCCESS,
 } from './actions';
 import axios from 'axios';
 const token = localStorage.getItem('token');
@@ -71,6 +74,7 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 2500);
+    console.log('sfs');
   };
 
   const setInLocalStorage = (user, token) => {
@@ -208,6 +212,7 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
+    // console.log('call all books');
   };
   const startReading = async (id) => {
     dispatch({ type: START_READING });
@@ -257,6 +262,32 @@ const AppProvider = ({ children }) => {
     }
     getAllBooks();
   };
+  const deleteBook = async (id) => {
+    dispatch({ type: DELETE_BOOK });
+    console.log(1);
+    try {
+      const { data } = await axios.delete(
+        `/api/v1/books/${id}`,
+
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      console.log(data);
+
+      dispatch({ type: DELETE_BOOK_SUCCESS, payload: { id, msg: data } });
+      console.log(3);
+    } catch (error) {
+      console.log(`THE ERROR IS ${error}`);
+      dispatch({
+        type: DELETE_BOOK_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
+    clearAlert();
+  };
 
   return (
     <AppContext.Provider
@@ -273,6 +304,7 @@ const AppProvider = ({ children }) => {
         getAllBooks,
         startReading,
         updateReadPages,
+        deleteBook,
       }}
     >
       {children}

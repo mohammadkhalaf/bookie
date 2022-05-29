@@ -6,6 +6,7 @@ import classes from './Modal.module.css';
 const Modal = ({ updateStatus, pages, hasRead, id, read, setNumb }) => {
   const { test } = useAppContext();
   console.log(hasRead);
+  console.log(id);
 
   const { updateReadPages } = useAppContext();
   const inputEl = useRef(null);

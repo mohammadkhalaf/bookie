@@ -8,7 +8,7 @@ import Modal from '../Modal/Modal';
 
 const Book = ({ title, createdAt, _id, isReading, author, pages, hasRead }) => {
   const [read, setRead] = useState(false);
-  const { startReading } = useAppContext();
+  const { startReading, deleteBook } = useAppContext();
   const date = moment(createdAt).format('MMM Do YY');
   const navigate = useNavigate();
   const readBookHandler = () => {
@@ -23,7 +23,7 @@ const Book = ({ title, createdAt, _id, isReading, author, pages, hasRead }) => {
         <h2>{title}</h2>
         <p>{author}</p>
         <h2>{date}</h2>
-        <button>Delete</button>
+        <button onClick={() => deleteBook(_id)}>Delete</button>
         {hasRead !== pages && (
           <button disabled={isReading} onClick={() => readBookHandler()}>
             {isReading ? 'You`re currently reading ' : 'Start reading'}

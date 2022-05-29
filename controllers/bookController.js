@@ -14,6 +14,7 @@ const updateBook = async (req, res) => {
   const { id } = req.body;
   console.log(id);
   console.log(req.body);
+  console.log('update function');
 
   const book = await Book.findOne({ _id: id });
   if (!book) {
@@ -28,7 +29,16 @@ const updateBook = async (req, res) => {
 };
 
 const deleteBook = async (req, res) => {
-  res.send('delete book');
+  const { id } = req.params;
+  console.log(id);
+
+  const book = await Book.findOne({ _id: id });
+  if (!book) {
+    throw new Error('The book can not be found');
+  }
+  await Book.findByIdAndDelete({ _id: id });
+
+  res.status(200).send('Item deleted successfully');
 };
 
 const getAllBooks = async (req, res) => {

@@ -21,6 +21,9 @@ import {
   GET_BOOKS_SUCCESS,
   START_READING_SUCCESS,
   START_READING,
+  DELETE_BOOK,
+  DELETE_BOOK_FAIL,
+  DELETE_BOOK_SUCCESS,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -211,8 +214,34 @@ export const reducer = (state, action) => {
     return {
       ...state,
       isLoading: false,
-      isReading: true,
-      test: action.payload,
+      // isReading: true,
+      // test: action.payload,
+    };
+  }
+  if (action.type === DELETE_BOOK) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === DELETE_BOOK_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+      books: state.books.filter((book) => book._id !== action.payload.id),
+      alert: true,
+      alertType: 'success',
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === DELETE_BOOK_FAIL) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
     };
   }
   return state;

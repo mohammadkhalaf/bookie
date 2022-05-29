@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken';
 const auth = async (req, res, next) => {
   const authHeader = req.headers.authorization;
+  console.log(authHeader);
 
   if (!authHeader || !authHeader.startsWith('Bearer')) {
     res.status(401);
@@ -19,6 +20,7 @@ const auth = async (req, res, next) => {
     console.log(req.user);
   } catch (error) {
     res.status(401);
+
     throw new Error('You are not authorized');
   }
 
