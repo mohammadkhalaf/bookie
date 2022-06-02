@@ -8,11 +8,15 @@ const IamReading = () => {
 
   useEffect(() => {
     getAllBooks();
+    // eslint-disable-next-line
   }, []);
   if (isLoading) {
     return <h2>loading ...</h2>;
   }
-  if (books.filter((b) => b.isReading === true).length === 0) {
+  if (
+    books.filter((b) => b.isReading === true && b.pages !== b.hasRead)
+      .length === 0
+  ) {
     return (
       <h1>You have not read any book yet!!. Grab a book and enjoy reading </h1>
     );
@@ -22,7 +26,7 @@ const IamReading = () => {
     <div>
       {books &&
         books
-          .filter((book) => book.isReading === true)
+          .filter((b) => b.isReading === true && b.pages !== b.hasRead)
           .map((book) => {
             return <BookInfo {...book} key={book._id} />;
           })}

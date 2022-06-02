@@ -74,7 +74,6 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 2500);
-    console.log('sfs');
   };
 
   const setInLocalStorage = (user, token) => {
@@ -132,7 +131,6 @@ const AppProvider = ({ children }) => {
     removeFromLocalStorage();
   };
   const updateUser = async (currentUser) => {
-    console.log(currentUser);
     dispatch({ type: UPDATE_USER });
     try {
       const { data } = await axios.patch(
@@ -146,8 +144,7 @@ const AppProvider = ({ children }) => {
       );
 
       const { user, token } = data;
-      console.log(user);
-      // // console.log(user);
+
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       setInLocalStorage(user, token);
     } catch (error) {
@@ -212,7 +209,6 @@ const AppProvider = ({ children }) => {
     } catch (error) {
       console.log(error);
     }
-    // console.log('call all books');
   };
   const startReading = async (id) => {
     dispatch({ type: START_READING });
@@ -235,10 +231,8 @@ const AppProvider = ({ children }) => {
       console.log(error);
       dispatch({ type: START_READING_FAIL });
     }
-    // getAllBooks();
   };
   const updateReadPages = async (pages, id) => {
-    console.log(pages, id);
     dispatch({ type: START_READING });
     try {
       const { data } = await axios.patch(
@@ -264,7 +258,7 @@ const AppProvider = ({ children }) => {
   };
   const deleteBook = async (id) => {
     dispatch({ type: DELETE_BOOK });
-    console.log(1);
+
     try {
       const { data } = await axios.delete(
         `/api/v1/books/${id}`,
@@ -275,10 +269,8 @@ const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(data);
 
       dispatch({ type: DELETE_BOOK_SUCCESS, payload: { id, msg: data } });
-      console.log(3);
     } catch (error) {
       console.log(`THE ERROR IS ${error}`);
       dispatch({
