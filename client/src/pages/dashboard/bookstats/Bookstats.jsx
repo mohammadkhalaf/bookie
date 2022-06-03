@@ -23,19 +23,25 @@ const Bookstats = () => {
     getAllBooks();
     // eslint-disable-next-line
   }, []);
+  const completedBooks = books.filter(
+    (b) => b.isReading === true && b.hasRead === b.pages
+  );
 
   const completedBook = books.filter((b) => b.isReading === true);
   let n = [];
+
   completedBook.forEach((i) => {
     if (
       moment(i.createdAt).format('MMMM') === monthNames[new Date().getMonth()]
     ) {
       n.push(i.hasRead);
     }
-    if (moment(i.createdAt).format('YYYY') === new Date().getFullYear()) {
-      console.log('year');
-    }
   });
+  let sum = 0;
+  for (let i = 0; i < n.length; i++) {
+    sum += n[i];
+  }
+
   let yArray = [];
   const completedAtYear = books.filter((b) => b.isReading === true);
   let y = completedAtYear.forEach((i) => {
@@ -50,11 +56,6 @@ const Bookstats = () => {
     // }
   });
 
-  let sum = 0;
-
-  for (let i = 0; i < n.length; i++) {
-    sum += n[i];
-  }
   let summ = 0;
 
   for (let i = 0; i < yArray.length; i++) {
@@ -65,14 +66,14 @@ const Bookstats = () => {
 
   return (
     <>
-      {/* <div>
-        {completedBook && (
+      <div>
+        {completedBooks && (
           <h1>
-            You have completed {completedBook.length}
-            {completedBook.length > 1 ? 'books' : 'book'}
+            You have completed {completedBooks.length}
+            {completedBooks.length > 1 ? 'books' : 'book'}
           </h1>
         )}
-      </div> */}
+      </div>
       <div>
         <h1>
           you have completed {sum} this month on average {monthlyAverage} pages

@@ -1,4 +1,5 @@
 import Book from '../models/bookModel.js';
+import mongoose from 'mongoose';
 const createBook = async (req, res) => {
   const { title, pages } = req.body;
 
@@ -46,7 +47,18 @@ const getAllBooks = async (req, res) => {
   res.status(200).json(books);
 };
 const getBooksStats = async (req, res) => {
-  res.send('get stats');
+  let stats = await Book.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+    { $group: { _id: '$genre', count: { $sum: 1 } } },
+  ]);
+  stats = stats.reduce((total, cur) => {
+    const { _id, count } = cur;
+    total[_id] = count;
+
+    return total;
+  }, {});
+
+  res.json({ stats });
 };
 
 export { createBook, getBooksStats, getAllBooks, deleteBook, updateBook };
