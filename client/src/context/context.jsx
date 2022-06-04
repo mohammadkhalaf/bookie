@@ -45,7 +45,7 @@ const initialState = {
   title: '',
   author: '',
 
-  types: ['fiction', 'nonfiction'],
+  types: ['fiction', 'nonfiction', 'math'],
   genre: 'nonfiction',
   pages: '',
   hasRead: 0,
@@ -281,6 +281,18 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
+  const showStats = async () => {
+    const { data } = await axios.get(
+      `/api/v1/books/stats`,
+
+      {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      }
+    );
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -297,6 +309,7 @@ const AppProvider = ({ children }) => {
         startReading,
         updateReadPages,
         deleteBook,
+        showStats,
       }}
     >
       {children}

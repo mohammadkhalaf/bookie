@@ -18,11 +18,27 @@ const Bookstats = () => {
     'November',
     'December',
   ];
-  const { books, getAllBooks } = useAppContext();
+  const { books, getAllBooks, showStats } = useAppContext();
   useEffect(() => {
     getAllBooks();
+    // showStats();
     // eslint-disable-next-line
   }, []);
+
+  const genre = [...new Set(books.map((book) => book.genre))];
+
+  const s = () => {
+    return genre.map((x) => {
+      return (
+        <h2 key={x}>
+          {' '}
+          {x}:{' '}
+          {books.filter((b) => b.genre === x && b.hasRead === b.pages).length}
+        </h2>
+      );
+    });
+  };
+
   const completedBooks = books.filter(
     (b) => b.isReading === true && b.hasRead === b.pages
   );
@@ -50,10 +66,6 @@ const Bookstats = () => {
     if (y == year) {
       yArray.push(i.hasRead);
     }
-
-    // if (moment(i.createdAt).format('YY') === new Date().getFullYear()) {
-    //   console.log('year');
-    // }
   });
 
   let summ = 0;
@@ -83,6 +95,7 @@ const Bookstats = () => {
           you have completed {summ} this month on average {yearlyAverage} pages
           a day
         </h1>
+        {s()}
       </div>
     </>
   );
