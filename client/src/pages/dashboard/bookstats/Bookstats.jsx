@@ -31,8 +31,7 @@ const Bookstats = () => {
     return genre.map((x) => {
       return (
         <h2 key={x}>
-          {' '}
-          {x}:{' '}
+          {x}:
           {books.filter((b) => b.genre === x && b.hasRead === b.pages).length}
         </h2>
       );
@@ -79,23 +78,25 @@ const Bookstats = () => {
   return (
     <>
       <div>
-        {completedBooks && (
+        <div>
+          {completedBooks && (
+            <h1>
+              You have completed {completedBooks.length}
+              {completedBooks.length > 1 ? 'books' : 'book'}
+            </h1>
+          )}
+        </div>
+        <div>
           <h1>
-            You have completed {completedBooks.length}
-            {completedBooks.length > 1 ? 'books' : 'book'}
+            you have completed {sum} this month on average {monthlyAverage}
+            pages a day
           </h1>
-        )}
-      </div>
-      <div>
-        <h1>
-          you have completed {sum} this month on average {monthlyAverage} pages
-          a day
-        </h1>
-        <h1>
-          you have completed {summ} this month on average {yearlyAverage} pages
-          a day
-        </h1>
-        {s()}
+          <h1>
+            you have completed {summ} this month on average {yearlyAverage}{' '}
+            pages a day
+          </h1>
+          {s()}
+        </div>
       </div>
     </>
   );
