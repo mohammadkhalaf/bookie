@@ -65,6 +65,7 @@ const AppContext = createContext();
 
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  console.log(state);
 
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });

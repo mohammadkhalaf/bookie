@@ -11,6 +11,7 @@ import AllBooks from './pages/dashboard/AllBooks/AllBooks';
 import Profile from './pages/dashboard/Profile/Profile';
 import Layout from './pages/dashboard/Layout/Layout';
 import ProtectedRoute from './pages/ProtectedRoute';
+import Register from './components/Register/Register';
 
 function App() {
   return (
@@ -18,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path='/dashboard'
+            path='/'
             element={
               <ProtectedRoute>
                 <Layout />
@@ -31,7 +32,8 @@ function App() {
             <Route path='addbook' element={<AddBook />} />
             <Route path='profile' element={<Profile />} />
           </Route>
-          <Route path='/' element={<LandingPage />} />
+          <Route path='/landing' element={<LandingPage />} />
+          <Route path='/register' element={<Register />} />
 
           <Route path='*' element={<Error />} />
         </Routes>

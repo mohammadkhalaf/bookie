@@ -1,0 +1,15 @@
+.alert {
+  width: 100%;
+
+  padding: 0.7rem;
+  border-radius: 0.4rem;
+  font-size: 1.5rem;
+}
+.danger {
+  color: rgba(255, 0, 0, 0.473);
+  background-color: rgb(184, 142, 142);
+}
+.success {
+  color: white;
+  background-color: #4caf50;
+}

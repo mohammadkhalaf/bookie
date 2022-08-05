@@ -1,21 +1,54 @@
-form {
-  margin-left: 2rem;
-  padding: 1rem;
+.page {
+  height: 100vh;
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 3rem;
+}
 
-  color: #bbc0b2;
+.form {
+  min-width: 35rem;
+
+  border-top: 5px solid var(--primary-color);
+  background-color: white;
+  border-radius: 0.4rem;
+
+  padding: 1.3rem;
 }
-label {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1rem;
+h3 {
+  text-align: center;
+
+  font-size: 2.9rem;
 }
-form button {
-  margin-top: 10px;
-  height: 2.5rem;
+p {
+  margin: 0;
+  margin-top: 1rem;
+  text-align: center;
 }
-.input {
-  width: 18rem;
-  height: 2.5rem;
+
+.submitbtn {
+  display: inline-block;
+  width: 100%;
+  padding: 0.7rem;
+  border: none;
+  background-color: var(--primary-color);
+  color: white;
+  font-size: 1.9rem;
+  cursor: pointer;
+  border-radius: 0.4rem;
+}
+.btn {
+  color: var(--primary-color);
+  border: none;
+  background-color: transparent;
+  font-size: 2rem;
+  cursor: pointer;
+}
+.member-btn {
+  background: transparent;
+  border: transparent;
+  color: var(--primary-500);
+  cursor: pointer;
+  letter-spacing: var(--letterSpacing);
 }

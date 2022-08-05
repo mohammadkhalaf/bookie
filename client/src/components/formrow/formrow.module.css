@@ -1,0 +1,18 @@
+.formrow {
+  margin-bottom: 1.5rem;
+
+  display: flex;
+  flex-direction: column;
+}
+.formrow label {
+  font-size: 1.7rem;
+}
+.formrow input {
+  padding: 0.7rem;
+  border: none;
+
+  background-color: #eee;
+}
+.formrow input:focus {
+  outline: none;
+}

@@ -1,10 +1,11 @@
 import { useState, useEffect } from 'react';
 
 import classes from './Register.module.css';
-import Input from '../Input/Input';
+
 import Alert from '../Alert/Alert';
 import { useAppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
+import FormRow from '../formrow/Formrow';
 
 const userObject = {
   name: '',
@@ -20,10 +21,7 @@ const Register = () => {
   const navigate = useNavigate();
 
   const changeHandler = (e) => {
-    setUser((prev) => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
+    setUser({ ...values, [e.target.name]: e.target.value });
   };
   const submitHandler = (e) => {
     e.preventDefault();
@@ -51,14 +49,13 @@ const Register = () => {
     setUser({ ...values, isRegistered: !values.isRegistered });
   };
   return (
-    <div>
+    <div className={classes.page}>
       <>
-        <form onSubmit={submitHandler}>
-          <h1>{values.isRegistered ? 'Login' : 'Register'}</h1>
+        <form className={classes.form} onSubmit={submitHandler}>
+          <h3>{values.isRegistered ? 'Login' : 'Register'}</h3>
           {alert && <Alert />}
           {!values.isRegistered && (
-            <Input
-              style={classes.input}
+            <FormRow
               labelText='Name'
               name='name'
               changeHandler={changeHandler}
@@ -67,32 +64,34 @@ const Register = () => {
             />
           )}
 
-          <Input
+          <FormRow
             labelText='Email'
             name='email'
             changeHandler={changeHandler}
             value={values.email}
             type='email'
-            style={classes.input}
           />
-          <Input
+          <FormRow
             labelText='Password'
             name='password'
             changeHandler={changeHandler}
             value={values.password}
             type='password'
-            style={classes.input}
           />
 
-          <button onClick={submitHandler} disabled={isLoading}>
+          <button
+            onClick={submitHandler}
+            className={classes.submitbtn}
+            disabled={isLoading}
+          >
             {!values.isRegistered ? 'Register' : 'Login'}
           </button>
         </form>
         <p>
           {!values.isRegistered
             ? 'Do you have an account?'
-            : 'Do not you have an account?'}
-          <button onClick={toggleHandler}>
+            : 'Do not you have an account?  '}
+          <button onClick={toggleHandler} className={classes.btn}>
             {values.isRegistered ? 'Register' : 'Login'}
           </button>
         </p>
