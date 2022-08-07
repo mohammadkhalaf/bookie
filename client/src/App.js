@@ -19,7 +19,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route
-            path='/'
+            path='/dashboard'
             element={
               <ProtectedRoute>
                 <Layout />
@@ -32,7 +32,7 @@ function App() {
             <Route path='addbook' element={<AddBook />} />
             <Route path='profile' element={<Profile />} />
           </Route>
-          <Route path='/landing' element={<LandingPage />} />
+          <Route path='/' element={<LandingPage />} />
           <Route path='/register' element={<Register />} />
 
           <Route path='*' element={<Error />} />
