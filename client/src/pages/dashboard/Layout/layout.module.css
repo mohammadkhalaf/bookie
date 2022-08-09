@@ -1,6 +1,7 @@
 .main {
   background-color: #eceff1;
   padding: 3rem 4rem 0rem;
+  display: flex;
 }
 .dashboard-nav {
   display: flex;
@@ -8,54 +9,19 @@
   margin-bottom: 3rem;
   height: 4rem;
 }
-.inputbox {
-  position: relative;
-}
-.input {
-  width: 30rem;
-  height: 4rem;
-  background-color: #faf9f9;
-  border: none;
-  border-radius: 0.4rem;
-  padding-left: 7rem;
-  font-size: 1.7rem;
-  color: #212529;
-}
-.input::placeholder {
-  color: #bdbdbd;
-  font-size: 2rem;
-}
-.icon {
-  position: absolute;
-  color: #212529;
-  top: 1rem;
-  left: 1rem;
-  font-size: 2rem;
-}
-.wrapper {
-  margin-left: 30rem;
 
+.wrapper {
+  flex: 1;
   min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
+  margin-left: 3rem;
 }
 
-.sidebar {
-  background-color: var(--primary-color);
-  padding: 3rem 2rem 0rem;
-  position: fixed;
-  height: 80%;
-  margin-left: 4rem;
-  top: 3rem;
-  left: 0;
-  z-index: 1;
-  border-radius: 1.5rem;
-}
-.sidebar h1 {
-  color: #f0f0f0;
-}
 .info {
   display: flex;
+
+  margin-left: auto;
 }
 .info span {
   font-size: 2rem;
@@ -68,4 +34,10 @@
   border-radius: 50%;
   width: 4rem;
   margin-left: 2rem;
+}
+@media (max-width: 700px) {
+  .main {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
 }

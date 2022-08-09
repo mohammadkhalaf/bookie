@@ -53,11 +53,6 @@ code {
     monospace;
 }
 
-/* .container {
-  width: var(--fluid-width);
-  max-width: var(--max-width);
-  margin: 0 auto;
-} */
 .img {
   width: 100%;
   display: block;

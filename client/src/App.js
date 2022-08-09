@@ -3,7 +3,6 @@ import LandingPage from './pages/landingpage/LandingPage';
 
 import Error from './pages/Error/Error';
 
-import './App.css';
 import Bookstats from './pages/dashboard/bookstats/Bookstats';
 import AddBook from './pages/dashboard/addbook/AddBook';
 import IamReading from './pages/dashboard/IamReading/IamReading';
@@ -26,7 +25,7 @@ function App() {
               </ProtectedRoute>
             }
           >
-            <Route index element={<IamReading />} />
+            <Route index path='iamreading' element={<IamReading />} />
             <Route path='stats' element={<Bookstats />} />
             <Route path='allbooks' element={<AllBooks />} />
             <Route path='addbook' element={<AddBook />} />

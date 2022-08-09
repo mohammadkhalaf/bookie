@@ -11,7 +11,7 @@ const userObject = {
   name: '',
   email: '',
   password: '',
-  isRegistered: false,
+  isRegistered: true,
 };
 
 const Register = () => {
@@ -40,7 +40,7 @@ const Register = () => {
   useEffect(() => {
     if (user) {
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/dashboard/iamreading');
       }, 3000);
     }
   }, [user, navigate]);

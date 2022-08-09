@@ -1,34 +1,26 @@
-import React from 'react';
-import { Link, Outlet } from 'react-router-dom';
+import SearchContainer from '../../../components/searchContainer/SearchContainer';
+import { Outlet } from 'react-router-dom';
 import { useAppContext } from '../../../context/context';
-import { FaSearch } from 'react-icons/fa';
+
 import avatar from '../../../assets/user.svg';
 import classes from './layout.module.css';
+import Sidebar from '../../../components/sidebar/Sidebar';
+import { useLocation } from 'react-router-dom';
 
 const Layout = () => {
-  const { logOut, user } = useAppContext();
+  const { user } = useAppContext();
+  const location = useLocation();
+  let xx = location.pathname === '/dashboard/allbooks' ? true : null;
+
   return (
     <>
       <main className={classes.main}>
-        <aside className={classes.sidebar}>
-          <h1>Bookie</h1>
-          <Link to='/dashboard'>Iam reading</Link>
-          <Link to='stats'>stats</Link>
-          <Link to='allbooks'>all books</Link>
-          <Link to='addbook'>add books</Link>
-          <Link to='profile'>Profile</Link>
-          <button onClick={logOut}>logout</button>
-        </aside>
+        <Sidebar />
+
         <div className={classes.wrapper}>
           <nav className={classes['dashboard-nav']}>
-            <div className={classes.inputbox}>
-              <FaSearch className={classes.icon} />
-              <input
-                type='text'
-                placeholder='Search'
-                className={classes.input}
-              />
-            </div>
+            {xx && <SearchContainer />}
+
             <div className={classes.info}>
               <span>{user.name}</span>
               <img src={avatar} alt='' />

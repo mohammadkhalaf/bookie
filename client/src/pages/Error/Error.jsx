@@ -11,7 +11,7 @@ const Error = () => {
       </div>
       <p className={classes.text}>Ohh! Page Not Found</p>
 
-      <Link className={classes.btn} to='/landing'>
+      <Link className={classes.btn} to='/dashboard/iamreading'>
         Back home
       </Link>
     </div>
