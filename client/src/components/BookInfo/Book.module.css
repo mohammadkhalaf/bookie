@@ -1,16 +1,22 @@
 .book {
-  border: 1px solid red;
   padding: 0.5rem;
   margin-bottom: 1rem;
 }
-/* .bar {
-  width: 3.2rem;
-  height: 3.2rem;
-  background-color: transparent;
-  position: relative;
-  border-radius: 100%;
-  border: 0.4rem solid red;
-} */
+.numberofpages {
+  color: green;
+}
+.btn {
+  color: #ffffff;
+  border: none;
+  background-color: var(--primary-color);
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+}
+.barcontainer {
+  width: 20rem;
+}
 .bar {
-  transition: transform 5s ease-in;
+  height: 100%;
 }
