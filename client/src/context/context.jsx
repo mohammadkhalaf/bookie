@@ -148,7 +148,6 @@ const AppProvider = ({ children }) => {
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       setInLocalStorage(user, token);
     } catch (error) {
-      console.log(error);
       dispatch({
         type: UPDATE_USER_FAIL,
         payload: { msg: error.response.data.msg },

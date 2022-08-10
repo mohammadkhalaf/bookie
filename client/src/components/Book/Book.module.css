@@ -1,5 +1,26 @@
 .book {
-  border: 1px solid red;
-  padding: 0.5rem;
+  border: 1px solid var(--primary-color);
+  padding: 2rem 0.5rem;
   margin-bottom: 1rem;
+  flex-basis: 45%;
+  margin-left: 3rem;
+}
+
+.btncontainer button {
+  background-color: var(--primary-color);
+  padding: 0rem 2rem;
+  color: white;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+.btncontainer button:first-child {
+  margin-right: 2rem;
+}
+
+@media (max-width: 950px) {
+  .book {
+    flex-basis: 100%;
+  }
 }

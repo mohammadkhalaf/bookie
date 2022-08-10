@@ -6,14 +6,56 @@
   height: 100%;
   width: 100%;
 }
+.inputfield {
+  width: 8rem;
+  height: 3rem;
+}
 
 .modalContent {
   position: absolute;
   background-color: white;
-  width: 25rem;
-  height: 10rem;
+  width: rem;
+  height: 15rem;
   padding: 1.5rem;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  border: 2px var(--primary-color) solid;
+  border-radius: 0.4rem;
+  z-index: 10;
+}
+.btncontainer {
+  margin-top: 2rem;
+  text-align: center;
+  height: 3rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+.btncontainer button {
+  display: inline-block;
+}
+.updatebtn {
+  background-color: var(--primary-color);
+  padding: 0rem 2rem;
+  color: white;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+}
+.closebtn {
+  background-color: var(--primary-color);
+  opacity: 0.7;
+  padding: 0rem 2rem;
+  color: white;
+  font-size: 1.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  cursor: pointer;
+  font-size: 1.8rem;
+}
+.error {
+  color: rgba(255, 0, 0, 0.473);
+  font-size: 1.6rem;
+  margin-left: 2rem;
 }

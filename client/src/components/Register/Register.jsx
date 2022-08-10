@@ -87,7 +87,7 @@ const Register = () => {
             {!values.isRegistered ? 'Register' : 'Login'}
           </button>
         </form>
-        <p>
+        <p className={classes.isregsitedtext}>
           {!values.isRegistered
             ? 'Do you have an account?'
             : 'Do not you have an account?  '}

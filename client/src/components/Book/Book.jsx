@@ -13,24 +13,27 @@ const Book = ({ title, createdAt, _id, isReading, author, pages, hasRead }) => {
   const navigate = useNavigate();
   const readBookHandler = () => {
     startReading(_id);
-    navigate('/dashboard');
+    navigate('/dashboard/iamreading');
   };
 
   return (
     <>
       {/* {read && <Modal read={read} />} */}
       <div className={classes.book}>
-        <h2>{title}</h2>
-        <p>{author}</p>
-        <h2>{date}</h2>
-        <button onClick={() => deleteBook(_id)}>Delete</button>
-        {hasRead !== pages && (
-          <button disabled={isReading} onClick={() => readBookHandler()}>
-            {isReading ? 'You`re currently reading ' : 'Start reading'}
-          </button>
-        )}
+        <h2>Title: {title}</h2>
+        <p>Author: {author}</p>
+        <p>{date}</p>
 
         <p>{hasRead === pages && <span>You have finished this book</span>} </p>
+
+        <div className={classes.btncontainer}>
+          <button onClick={() => deleteBook(_id)}>Delete</button>
+          {hasRead !== pages && (
+            <button disabled={isReading} onClick={() => readBookHandler()}>
+              {isReading ? 'You`re currently reading ' : 'Start reading'}
+            </button>
+          )}
+        </div>
       </div>
     </>
   );

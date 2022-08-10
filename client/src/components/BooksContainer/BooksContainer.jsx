@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import Loading from '../Loading/Loading';
 import Book from '../Book/Book';
 import { useAppContext } from '../../context/context';
+import classes from './bookcontainer.module.css';
 
 const BooksContainer = () => {
   const { getAllBooks, books, isLoading, alert, alertText } = useAppContext();
@@ -19,7 +20,7 @@ const BooksContainer = () => {
     <>
       {alert && alertText}
 
-      <div>
+      <div className={classes.container}>
         {books.map((book) => {
           return <Book key={book._id} {...book} />;
         })}

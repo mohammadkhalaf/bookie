@@ -28,14 +28,13 @@ const BookInfo = ({ title, author, pages, _id, hasRead }) => {
           id={_id}
         />
       )}
-      <div className={classes.book}>
+      <div>
         <p>
-          Great <span className={classes.highlight}>{user.name}</span> you
-          picket <span className={classes.highlight}>{title} </span> a stunning
-          book written by <span className={classes.highlight}>{author}</span>
+          Great <span>{user.name}</span> you picket <span>{title} </span> a
+          stunning book written by <span>{author}</span>
         </p>
         <p>
-          Have you read something today? Let us know how mnay pages have you
+          Have you read something today? Let us know how many pages have you
           accomplished
         </p>
 
