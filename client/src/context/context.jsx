@@ -183,7 +183,7 @@ const AppProvider = ({ children }) => {
           },
         }
       );
-
+      console.log(title, author, pages, hasRead, genre, isReading);
       dispatch({ type: CREATE_BOOK_SUCCESS });
     } catch (error) {
       console.log(error);

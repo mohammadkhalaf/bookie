@@ -1,49 +1,24 @@
 .sidebar {
-  background-color: var(--primary-color);
-  padding: 3rem 2rem 3rem;
+  background: var(--primary-color);
+
+  height: 50rem;
   position: sticky;
-
-  margin-left: 4rem;
-  width: 30rem;
   top: 3rem;
-  left: 0;
-  z-index: 1;
-  border-radius: 1.5rem;
-  height: 80vh;
 
-  overflow-y: auto;
+  width: 250px;
+  padding: 2rem;
+  border-radius: 0.5rem;
 }
+
 li {
   list-style: none;
 
   padding: 1rem 0;
 }
-@media (max-width: 800px) {
-  .sidebar {
-    width: 22rem;
-  }
+li:hover a {
+  color: #f09829;
 }
-@media (max-width: 700px) {
-  .sidebar h1 {
-    font-size: 2rem;
-  }
-  .sidebar {
-    margin-left: 0rem;
-    width: 10rem;
-  }
-  li {
-    padding: 1rem 0;
-    margin-bottom: 1rem;
-  }
-  .sidebar span {
-    display: none;
-  }
-}
-@media (max-width: 562px) {
-  .sidebar {
-    display: none;
-  }
-}
+
 .sidebar h1 {
   color: #f0f0f0;
 }

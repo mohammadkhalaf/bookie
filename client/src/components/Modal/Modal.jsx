@@ -38,16 +38,6 @@ const Modal = ({ updateStatus, pages, hasRead, id, read, setNumb }) => {
         <div className={classes.modalContent}>
           <p>Well done! Insert the number of pages that you read today</p>
 
-          {/* <FaTimes className={classes.closeicon} />
-          <button>x</button> */}
-          {/* {!read && (
-            <input
-              className={classes.inputfield}
-              type='number'
-              min={0}
-              ref={inputEl}
-            />
-          )} */}
           <input
             className={classes.inputfield}
             type='number'

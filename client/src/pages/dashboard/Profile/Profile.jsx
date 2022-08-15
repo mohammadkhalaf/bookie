@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useAppContext } from '../../../context/context';
 import Alert from '../../../components/Alert/Alert';
+import classes from './profile.module.css';
 
 const Profile = () => {
   const { updateUser, user, displayAlert, alert } = useAppContext();
@@ -18,27 +19,29 @@ const Profile = () => {
   };
 
   return (
-    <div>
-      <form onSubmit={submitHandler}>
+    <div className={classes.formcontainer}>
+      <form onSubmit={submitHandler} className={classes.form}>
         <h3>Profile</h3>
         {alert && <Alert />}
 
         <label>
-          <span>Name:</span>
+          <span className={classes.title}>Name:</span>
           <input
             type='text'
             value={name}
             name='name'
+            className={classes.inputfield}
             onChange={(e) => setName(e.target.value)}
           />
         </label>
         <label>
-          <span>Email:</span>
+          <span className={classes.title}>Email:</span>
           <input
             type='email'
             value={email}
             name='email'
             onChange={(e) => setEmail(e.target.value)}
+            className={classes.inputfield}
           />
         </label>
         <button>Update</button>

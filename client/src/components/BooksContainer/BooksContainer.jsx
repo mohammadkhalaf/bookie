@@ -18,7 +18,7 @@ const BooksContainer = () => {
   }
   return (
     <>
-      {alert && alertText}
+      {alert && <p className={classes.alertText}> {alertText}</p>}
 
       <div className={classes.container}>
         {books.map((book) => {

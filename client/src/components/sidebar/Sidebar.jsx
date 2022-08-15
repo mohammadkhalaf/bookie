@@ -12,83 +12,85 @@ const Sidebar = () => {
   const { logOut } = useAppContext();
   return (
     <aside className={classes.sidebar}>
-      <h1>Bookie</h1>
+      <div className={classes.content}>
+        <h1>Bookie</h1>
 
-      <ul>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.activelink} ${classes.link} `
-                : `${classes.link}`
-            }
-            to='iamreading'
-          >
-            <GiOpenBook className={classes.sidebaricon} />
-            <span>Iam reading</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.activelink} ${classes.link} `
-                : `${classes.link}`
-            }
-            to='stats'
-          >
-            <IoStatsChartOutline className={classes.sidebaricon} />
-            <span>stats</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.activelink} ${classes.link} `
-                : `${classes.link}`
-            }
-            to='allbooks'
-          >
-            <ImBooks className={classes.sidebaricon} />
+        <ul>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.activelink} ${classes.link} `
+                  : `${classes.link}`
+              }
+              to='iamreading'
+            >
+              <GiOpenBook className={classes.sidebaricon} />
+              <span>Iam reading</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.activelink} ${classes.link} `
+                  : `${classes.link}`
+              }
+              to='stats'
+            >
+              <IoStatsChartOutline className={classes.sidebaricon} />
+              <span>stats</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.activelink} ${classes.link} `
+                  : `${classes.link}`
+              }
+              to='allbooks'
+            >
+              <ImBooks className={classes.sidebaricon} />
 
-            <span>all books</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.activelink} ${classes.link} `
-                : `${classes.link}`
-            }
-            to='addbook'
-          >
-            <AiOutlineFileAdd className={classes.sidebaricon} />
+              <span>all books</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.activelink} ${classes.link} `
+                  : `${classes.link}`
+              }
+              to='addbook'
+            >
+              <AiOutlineFileAdd className={classes.sidebaricon} />
 
-            <span>add books</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink
-            className={({ isActive }) =>
-              isActive
-                ? `${classes.activelink} ${classes.link} `
-                : `${classes.link}`
-            }
-            to='profile'
-          >
-            <ImProfile className={classes.sidebaricon} />
-            <span>Profile</span>
-          </NavLink>
-        </li>
+              <span>add books</span>
+            </NavLink>
+          </li>
+          <li>
+            <NavLink
+              className={({ isActive }) =>
+                isActive
+                  ? `${classes.activelink} ${classes.link} `
+                  : `${classes.link}`
+              }
+              to='profile'
+            >
+              <ImProfile className={classes.sidebaricon} />
+              <span>Profile</span>
+            </NavLink>
+          </li>
 
-        <li onClick={logOut}>
-          <GoSignOut />
+          <li onClick={logOut}>
+            <GoSignOut />
 
-          <span>Log out</span>
-        </li>
-      </ul>
+            <span>Log out</span>
+          </li>
+        </ul>
+      </div>
     </aside>
   );
 };

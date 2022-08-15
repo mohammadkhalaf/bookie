@@ -17,7 +17,7 @@ const auth = async (req, res, next) => {
     console.log(decoded);
 
     req.user = { userId: decoded.id };
-    console.log(req.user);
+    console.log(`The auth middle ware is working , ${req.user}`);
   } catch (error) {
     res.status(401);
 
