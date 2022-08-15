@@ -13,9 +13,6 @@ const createBook = async (req, res) => {
 };
 const updateBook = async (req, res) => {
   const { id } = req.body;
-  console.log(id);
-  console.log(req.body);
-  console.log('update function');
 
   const book = await Book.findOne({ _id: id });
   if (!book) {
@@ -44,21 +41,26 @@ const deleteBook = async (req, res) => {
 
 const getAllBooks = async (req, res) => {
   const books = await Book.find({ createdBy: req.user.userId });
-  res.status(200).json(books);
+
+  res.status(200).json({ books, totalBooks: Book.length, numOfPages: 1 });
 };
 const getBooksStats = async (req, res) => {
   let stats = await Book.aggregate([
     { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: '$genre', count: { $sum: 1 } } },
+    { $group: { _id: '$genre', totalQuantity: { $sum: 1 } } },
   ]);
-  stats = stats.reduce((total, cur) => {
-    const { _id, count } = cur;
-    total[_id] = count;
 
-    return total;
+  stats = stats.reduce((acc, cur) => {
+    const { _id, totalQuantity } = cur;
+    acc[_id] = totalQuantity;
+    return acc;
   }, {});
-
-  res.json({ stats });
+  const defaultStats = {
+    fiction: stats.fiction || 0,
+    nonfiction: stats.nonfiction || 0,
+  };
+  let monthlyStats = [];
+  res.status(200).json({ defaultStats, monthlyStats });
 };
 
 export { createBook, getBooksStats, getAllBooks, deleteBook, updateBook };

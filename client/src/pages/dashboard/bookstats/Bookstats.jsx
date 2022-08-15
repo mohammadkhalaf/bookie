@@ -21,7 +21,7 @@ const Bookstats = () => {
   const { books, getAllBooks, showStats } = useAppContext();
   useEffect(() => {
     getAllBooks();
-    // showStats();
+    showStats();
     // eslint-disable-next-line
   }, []);
 

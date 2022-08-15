@@ -32,6 +32,7 @@ import {
   DELETE_BOOK_SUCCESS,
 } from './actions';
 import axios from 'axios';
+
 const token = localStorage.getItem('token');
 const user = localStorage.getItem('user');
 
@@ -45,7 +46,7 @@ const initialState = {
   title: '',
   author: '',
 
-  types: ['fiction', 'nonfiction', 'math'],
+  types: ['fiction', 'nonfiction'],
   genre: 'nonfiction',
   pages: '',
   hasRead: 0,
@@ -66,6 +67,31 @@ const AppContext = createContext();
 const AppProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const authFetch = axios.create({
+    baseURL: '/api/v1',
+  });
+
+  authFetch.interceptors.request.use(
+    (config) => {
+      config.headers.common['Authorization'] = `Bearer ${state.token}`;
+      return config;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
+
+  authFetch.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response.status === 401) {
+        console.log('auth error');
+      }
+      return Promise.reject(error);
+    }
+  );
   const displayAlert = () => {
     dispatch({ type: DISPLAY_ALERT });
     clearAlert();
@@ -133,25 +159,19 @@ const AppProvider = ({ children }) => {
   const updateUser = async (currentUser) => {
     dispatch({ type: UPDATE_USER });
     try {
-      const { data } = await axios.patch(
-        '/api/v1/auth/updateuser',
-        currentUser,
-        {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-        }
-      );
+      const { data } = await authFetch.patch('/auth/updateuser', currentUser);
 
       const { user, token } = data;
 
       dispatch({ type: UPDATE_USER_SUCCESS, payload: { user, token } });
       setInLocalStorage(user, token);
     } catch (error) {
-      dispatch({
-        type: UPDATE_USER_FAIL,
-        payload: { msg: error.response.data.msg },
-      });
+      if (error.response.status !== 401) {
+        dispatch({
+          type: UPDATE_USER_FAIL,
+          payload: { msg: error.response.data.msg },
+        });
+      }
     }
     clearAlert();
   };
@@ -183,7 +203,7 @@ const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(title, author, pages, hasRead, genre, isReading);
+
       dispatch({ type: CREATE_BOOK_SUCCESS });
     } catch (error) {
       console.log(error);
@@ -203,8 +223,9 @@ const AppProvider = ({ children }) => {
           },
         }
       );
+      console.log(1);
 
-      dispatch({ type: GET_BOOKS_SUCCESS, payload: { books: data } });
+      dispatch({ type: GET_BOOKS_SUCCESS, payload: data });
     } catch (error) {
       console.log(error);
     }
@@ -290,6 +311,7 @@ const AppProvider = ({ children }) => {
         },
       }
     );
+    console.log(data);
   };
 
   return (
