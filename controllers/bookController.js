@@ -41,9 +41,31 @@ const deleteBook = async (req, res) => {
 };
 
 const getAllBooks = async (req, res) => {
-  const books = await Book.find({ createdBy: req.user.userId });
+  const { search } = req.query;
+  console.log(search);
 
-  res.status(200).json({ books, totalBooks: Book.length, numOfPages: 1 });
+  const queryObject = {
+    createdBy: req.user.userId,
+  };
+
+  if (search) {
+    queryObject.title = { $regex: search, $options: 'i' };
+  }
+
+  let result = Book.find(queryObject);
+
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 10;
+  const skip = (page - 1) * limit;
+
+  result = result.skip(skip).limit(limit);
+
+  const books = await result;
+
+  const totalBooks = await Book.countDocuments(queryObject);
+  const numOfPages = Math.ceil(totalBooks / limit);
+
+  res.status(200).json({ books, totalBooks, numOfPages });
 };
 const getBooksStats = async (req, res) => {
   let stats = await Book.aggregate([

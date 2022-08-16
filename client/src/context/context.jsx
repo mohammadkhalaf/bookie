@@ -48,13 +48,12 @@ const initialState = {
   token: token ? JSON.parse(token) : null,
   title: '',
   author: '',
-
+  search: '',
   types: ['fiction', 'nonfiction'],
   genre: 'nonfiction',
   pages: '',
   hasRead: 0,
   isReading: false,
-  test: 0,
 
   createdBy: '',
   isEdited: false,
@@ -180,7 +179,7 @@ const AppProvider = ({ children }) => {
     clearAlert();
   };
 
-  const handleChange = (name, value) => {
+  const handleChange = ({ name, value }) => {
     dispatch({ type: HANDEL_CHANGE, payload: { name, value } });
   };
   const clearInputs = () => {
@@ -216,20 +215,25 @@ const AppProvider = ({ children }) => {
   };
 
   const getAllBooks = async () => {
+    const { search } = state;
+    let url = `/api/v1/books?`;
+    if (search) {
+      url = url + `&search=${search}`;
+    }
     dispatch({ type: GET_BOOKS });
+
     try {
-      const { data } = await axios.get(
-        '/api/v1/books',
+      const { data } = await axios.get(url, {
+        headers: {
+          Authorization: `Bearer ${state.token}`,
+        },
+      });
 
-        {
-          headers: {
-            Authorization: `Bearer ${state.token}`,
-          },
-        }
-      );
-      console.log(1);
-
-      dispatch({ type: GET_BOOKS_SUCCESS, payload: data });
+      const { books, totalBooks, numOfPages } = data;
+      dispatch({
+        type: GET_BOOKS_SUCCESS,
+        payload: { books, totalBooks, numOfPages },
+      });
     } catch (error) {
       console.log(error);
     }

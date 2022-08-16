@@ -5,11 +5,14 @@ import { useAppContext } from '../../context/context';
 import classes from './bookcontainer.module.css';
 
 const BooksContainer = () => {
-  const { getAllBooks, books, isLoading, alert, alertText } = useAppContext();
+  const { getAllBooks, books, isLoading, alert, alertText, search } =
+    useAppContext();
 
   useEffect(() => {
     getAllBooks();
-  }, []);
+
+    console.log(books.length);
+  }, [search]);
   if (isLoading) {
     return <Loading />;
   }
@@ -21,9 +24,11 @@ const BooksContainer = () => {
       {alert && <p className={classes.alertText}> {alertText}</p>}
 
       <div className={classes.container}>
-        {books.map((book) => {
-          return <Book key={book._id} {...book} />;
-        })}
+        {books
+          .filter((item) => item.title.toLowerCase().includes(search))
+          .map((book) => {
+            return <Book key={book._id} {...book} />;
+          })}
       </div>
     </>
   );

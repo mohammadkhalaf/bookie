@@ -25,7 +25,7 @@ const AddBook = () => {
     const name = e.target.name;
     const value = e.target.value;
 
-    handleChange(name, value);
+    handleChange({ name, value });
   };
   const submitHandler = (e) => {
     e.preventDefault();
