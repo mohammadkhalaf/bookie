@@ -1,5 +1,6 @@
 import Book from '../models/bookModel.js';
 import mongoose from 'mongoose';
+import moment from 'moment';
 const createBook = async (req, res) => {
   const { title, pages } = req.body;
 
@@ -47,19 +48,47 @@ const getAllBooks = async (req, res) => {
 const getBooksStats = async (req, res) => {
   let stats = await Book.aggregate([
     { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
-    { $group: { _id: '$genre', totalQuantity: { $sum: 1 } } },
+    { $group: { _id: '$genre', Total: { $sum: 1 } } },
   ]);
 
   stats = stats.reduce((acc, cur) => {
-    const { _id, totalQuantity } = cur;
-    acc[_id] = totalQuantity;
+    const { _id, Total } = cur;
+    acc[_id] = Total;
     return acc;
   }, {});
   const defaultStats = {
     fiction: stats.fiction || 0,
     nonfiction: stats.nonfiction || 0,
   };
-  let monthlyStats = [];
+
+  let monthlyStats = await Book.aggregate([
+    { $match: { createdBy: mongoose.Types.ObjectId(req.user.userId) } },
+    {
+      $group: {
+        _id: {
+          year: { $year: '$createdAt' },
+          month: { $month: '$createdAt' },
+        },
+        Total: { $sum: 1 },
+      },
+    },
+
+    { $sort: { '_id.year': -1, '_id.month': -1 } },
+    { $limit: 6 },
+  ]);
+  monthlyStats = monthlyStats
+    .map((item) => {
+      const {
+        _id: { year, month },
+        Total,
+      } = item;
+      const date = moment()
+        .month(month - 1)
+        .year(year)
+        .format('MMM Y');
+      return { date, Total };
+    })
+    .reverse();
   res.status(200).json({ defaultStats, monthlyStats });
 };
 

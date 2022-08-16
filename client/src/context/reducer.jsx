@@ -24,6 +24,9 @@ import {
   DELETE_BOOK,
   DELETE_BOOK_FAIL,
   DELETE_BOOK_SUCCESS,
+  SHOW_STATS_BEGAINS,
+  SHOW_STATS_SUCCESS,
+  SHOW_STATS_FAIL,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -236,6 +239,31 @@ export const reducer = (state, action) => {
   }
 
   if (action.type === DELETE_BOOK_FAIL) {
+    return {
+      ...state,
+      isLoading: false,
+      alert: true,
+      alertType: 'danger',
+      alertText: action.payload.msg,
+    };
+  }
+
+  if (action.type === SHOW_STATS_BEGAINS) {
+    return {
+      ...state,
+      isLoading: true,
+    };
+  }
+  if (action.type === SHOW_STATS_SUCCESS) {
+    return {
+      ...state,
+      isLoading: false,
+
+      stats: action.payload.defaultStats,
+      monthlyStats: action.payload.monthlyStats,
+    };
+  }
+  if (action.type === SHOW_STATS_FAIL) {
     return {
       ...state,
       isLoading: false,

@@ -30,6 +30,9 @@ import {
   DELETE_BOOK,
   DELETE_BOOK_FAIL,
   DELETE_BOOK_SUCCESS,
+  SHOW_STATS_BEGAINS,
+  SHOW_STATS_SUCCESS,
+  SHOW_STATS_FAIL,
 } from './actions';
 import axios from 'axios';
 
@@ -55,7 +58,8 @@ const initialState = {
 
   createdBy: '',
   isEdited: false,
-
+  monthlyStats: [],
+  stats: {},
   editBookId: '',
   books: [],
   totalBooks: 0,
@@ -302,16 +306,31 @@ const AppProvider = ({ children }) => {
   };
 
   const showStats = async () => {
-    const { data } = await axios.get(
-      `/api/v1/books/stats`,
+    dispatch({ type: SHOW_STATS_BEGAINS });
+    try {
+      const { data } = await axios.get(
+        `/api/v1/books/stats`,
 
-      {
-        headers: {
-          Authorization: `Bearer ${state.token}`,
+        {
+          headers: {
+            Authorization: `Bearer ${state.token}`,
+          },
+        }
+      );
+      console.log(data);
+      dispatch({
+        type: SHOW_STATS_SUCCESS,
+        payload: {
+          defaultStats: data.defaultStats,
+          monthlyStats: data.monthlyStats,
         },
-      }
-    );
-    console.log(data);
+      });
+    } catch (error) {
+      dispatch({
+        type: SHOW_STATS_FAIL,
+        payload: { msg: error.response.data.msg },
+      });
+    }
   };
 
   return (
