@@ -27,6 +27,7 @@ import {
   SHOW_STATS_BEGAINS,
   SHOW_STATS_SUCCESS,
   SHOW_STATS_FAIL,
+  CHANGE_PAGE,
 } from './actions';
 export const reducer = (state, action) => {
   if (action.type === DISPLAY_ALERT) {
@@ -169,6 +170,7 @@ export const reducer = (state, action) => {
   if (action.type === CREATE_BOOK) {
     return {
       ...state,
+      page: 1,
       isLoading: true,
     };
   }
@@ -270,6 +272,12 @@ export const reducer = (state, action) => {
       alert: true,
       alertType: 'danger',
       alertText: action.payload.msg,
+    };
+  }
+  if (action.type === CHANGE_PAGE) {
+    return {
+      ...state,
+      page: action.payload.page,
     };
   }
   return state;

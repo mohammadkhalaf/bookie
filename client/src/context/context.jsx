@@ -33,6 +33,7 @@ import {
   SHOW_STATS_BEGAINS,
   SHOW_STATS_SUCCESS,
   SHOW_STATS_FAIL,
+  CHANGE_PAGE,
 } from './actions';
 import axios from 'axios';
 
@@ -103,6 +104,10 @@ const AppProvider = ({ children }) => {
     setTimeout(() => {
       dispatch({ type: CLEAR_ALERT });
     }, 2500);
+  };
+
+  const changePage = (page) => {
+    dispatch({ type: CHANGE_PAGE, payload: { page } });
   };
 
   const setInLocalStorage = (user, token) => {
@@ -215,8 +220,8 @@ const AppProvider = ({ children }) => {
   };
 
   const getAllBooks = async () => {
-    const { search } = state;
-    let url = `/api/v1/books?`;
+    const { search, page } = state;
+    let url = `/api/v1/books?page=${page}`;
     if (search) {
       url = url + `&search=${search}`;
     }
@@ -354,6 +359,7 @@ const AppProvider = ({ children }) => {
         updateReadPages,
         deleteBook,
         showStats,
+        changePage,
       }}
     >
       {children}
