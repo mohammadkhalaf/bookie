@@ -1,5 +1,4 @@
 const errorHandlerMiddleware = (err, req, res, next) => {
-  console.log(err);
   let errorMsg = err.message
     ? err.message
     : 'Something went wrong, try again later';

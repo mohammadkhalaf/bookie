@@ -19,8 +19,6 @@ const BooksContainer = () => {
 
   useEffect(() => {
     getAllBooks();
-
-    console.log(books.length);
   }, [search, page]);
   if (isLoading) {
     return <Loading />;

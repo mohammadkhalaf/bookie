@@ -51,3 +51,24 @@ li:last-child {
 li:last-child span {
   margin-left: 1rem;
 }
+.menu {
+  font-size: 4rem;
+  color: var(--primary-color);
+  display: none;
+}
+
+@media (max-width: 850px) {
+  .sidebar {
+    width: 7rem;
+  }
+  .sidebar h1 {
+    visibility: hidden;
+  }
+
+  li span {
+    display: none;
+  }
+  .sidebaricon {
+    margin-bottom: 1rem;
+  }
+}

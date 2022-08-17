@@ -7,12 +7,11 @@ import StatsContainer from '../../../components/statscontainer/StatsContainer';
 
 const Bookstats = () => {
   const { books, showStats, isLoading, monthlyStats } = useAppContext();
-  console.log(monthlyStats);
+
   useEffect(() => {
     showStats();
-    // eslint-disable-next-line
+    // // eslint-disable-next-line
   }, []);
-  console.log(monthlyStats);
 
   if (isLoading) {
     <h3>Is loading</h3>;

@@ -17,22 +17,16 @@ import {
   HANDEL_CHANGE,
   CLEAR_FIELDS,
   CREATE_BOOK,
-  CREATE_BOOK_FAIL,
   CREATE_BOOK_SUCCESS,
   GET_BOOKS,
-  GET_BOOKS_FAIL,
   GET_BOOKS_SUCCESS,
   START_READING,
   START_READING_FAIL,
   START_READING_SUCCESS,
-  UPDATE_BOOK,
-  UPDATE_BOOK_SUCCESS,
   DELETE_BOOK,
-  DELETE_BOOK_FAIL,
   DELETE_BOOK_SUCCESS,
   SHOW_STATS_BEGAINS,
   SHOW_STATS_SUCCESS,
-  SHOW_STATS_FAIL,
   CHANGE_PAGE,
 } from './actions';
 import axios from 'axios';
@@ -240,7 +234,7 @@ const AppProvider = ({ children }) => {
         payload: { books, totalBooks, numOfPages },
       });
     } catch (error) {
-      console.log(error);
+      logOut();
     }
   };
   const startReading = async (id) => {
@@ -305,11 +299,7 @@ const AppProvider = ({ children }) => {
 
       dispatch({ type: DELETE_BOOK_SUCCESS, payload: { id, msg: data } });
     } catch (error) {
-      console.log(`THE ERROR IS ${error}`);
-      dispatch({
-        type: DELETE_BOOK_FAIL,
-        payload: { msg: error.response.data.msg },
-      });
+      logOut();
     }
     clearAlert();
   };
@@ -326,7 +316,7 @@ const AppProvider = ({ children }) => {
           },
         }
       );
-      console.log(data);
+
       dispatch({
         type: SHOW_STATS_SUCCESS,
         payload: {
@@ -335,10 +325,7 @@ const AppProvider = ({ children }) => {
         },
       });
     } catch (error) {
-      dispatch({
-        type: SHOW_STATS_FAIL,
-        payload: { msg: error.response.data.msg },
-      });
+      logOut();
     }
   };
 
