@@ -4,10 +4,9 @@ import classes from './Book.module.css';
 
 import { useAppContext } from '../../context/context';
 import { useNavigate } from 'react-router-dom';
-import Modal from '../Modal/Modal';
 
 const Book = ({ title, createdAt, _id, isReading, author, pages, hasRead }) => {
-  const [read, setRead] = useState(false);
+  // const [read, setRead] = useState(false);
   const { startReading, deleteBook } = useAppContext();
   const date = moment(createdAt).format('MMM Do YY');
   const navigate = useNavigate();
