@@ -1,22 +1,17 @@
-import React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../../../context/context';
 import classes from './addbook.module.css';
 import Alert from '../../../components/Alert/Alert';
 
 const AddBook = () => {
+  const [err, setErr] = useState(null);
   const {
     alert,
     title,
     author,
-    status,
-    statusOptions,
     genre,
     pages,
-    isEdited,
     handleChange,
-    displayAlert,
-    clearInputs,
     createBook,
     types,
   } = useAppContext();
@@ -31,11 +26,16 @@ const AddBook = () => {
     e.preventDefault();
 
     if (!title || !author || !pages || !genre || pages <= 0) {
-      console.log('some hting is wrng');
+      setErr('Please fill all the fields');
       return;
     }
     createBook();
   };
+  useEffect(() => {
+    setTimeout(() => {
+      setErr(null);
+    }, 2500);
+  }, [err]);
 
   return (
     <div className={classes.formcontainer}>
@@ -87,6 +87,7 @@ const AddBook = () => {
             );
           })}
         </select>
+        <p className={classes.err}>{err && err}</p>
 
         <button>Submit</button>
       </form>

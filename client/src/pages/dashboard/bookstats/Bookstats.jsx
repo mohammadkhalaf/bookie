@@ -1,12 +1,11 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useAppContext } from '../../../context/context';
-import moment from 'moment';
+import clasess from './stats.module.css';
 import Chart from '../../../components/ChartContainer/Chart';
-import StatsContainer from '../../../components/statscontainer/StatsContainer';
 
 const Bookstats = () => {
-  const { books, showStats, isLoading, monthlyStats } = useAppContext();
+  const { totalBooks, showStats, isLoading, monthlyStats } = useAppContext();
 
   useEffect(() => {
     showStats();
@@ -20,7 +19,10 @@ const Bookstats = () => {
   return (
     <>
       <div>
-        <StatsContainer />
+        <h1 className={clasess.info}>
+          You have read {totalBooks} books so far
+        </h1>
+
         {monthlyStats.length > 0 && <Chart data={monthlyStats} />}
       </div>
     </>

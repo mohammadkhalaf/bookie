@@ -1,6 +1,10 @@
 .numberofpages {
   color: green;
 }
+.bookInfo {
+  color: #484c7e;
+  font-weight: 700;
+}
 .btn {
   color: #ffffff;
   border: none;
@@ -9,11 +13,27 @@
   cursor: pointer;
   padding: 1rem 2rem;
   border-radius: 0.5rem;
-  margin: 2em 0;
+  /* margin: 2em 0; */
 }
-.barcontainer {
+.barContainer {
+  display: flex;
+  justify-content: center;
+}
+.bar {
   width: 20rem;
+  text-align: center;
 }
 .bar {
   height: 100%;
+}
+
+@media (max-width: 700px) {
+  .p {
+    font-size: 1.9rem;
+  }
+}
+@media (max-width: 700px) {
+  .bar {
+    width: 17rem;
+  }
 }

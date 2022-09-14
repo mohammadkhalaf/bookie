@@ -10,17 +10,14 @@ const LandingPage = () => {
     <>
       <main className={classes.landingpage}>
         <nav className={classes.nav}>
-          <h2>Logo</h2>
+          <h1>Bookiee</h1>
         </nav>
         <div className={`${classes.container} ${classes.page}`}>
           <div className={classes.info}>
-            <h1>Header</h1>
-            <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam
-              ducimus quis qui dolore tempora? Vitae laboriosam, voluptatum nam
-              commodi numquam nesciunt eligendi accusamus voluptatibus quod amet
-              labore culpa, repellat sed.
+            <p className={classes.p}>
+              Kepp track of all your books and make a habit out of reading!
             </p>
+            <p className={classes.p}>Don't go another day without reading</p>
             <button
               onClick={() => {
                 naviagte('/register');

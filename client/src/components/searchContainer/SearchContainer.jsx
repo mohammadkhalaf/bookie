@@ -13,6 +13,7 @@ const SearchContainer = () => {
   return (
     <div className={classes.inputbox}>
       <FaSearch className={classes.icon} />
+
       <input
         type='text'
         placeholder='Search'

@@ -1,0 +1,12 @@
+.btnContainer {
+  display: flex;
+  display: flex;
+  justify-content: center;
+}
+.btnContainer button {
+  background-color: var(--primary-color);
+  color: white;
+  padding: 1.5rem;
+  border: none;
+  margin-left: 0.5rem;
+}

@@ -1,19 +1,16 @@
 .book {
   border: 1px solid var(--primary-color);
-  min-height: 25rem;
+
   padding: 2rem 0.5rem;
   margin-bottom: 1rem;
-  flex-basis: 45%;
-  position: relative;
+  /* max-width: 40rem; */
 }
 .btncontainer {
   display: flex;
-  position: absolute;
+
   align-items: center;
 
   bottom: 1.5rem;
-  left: 0;
-  margin-left: 2rem;
 }
 .btncontainer button:first-child {
   margin-right: 1rem;
@@ -32,6 +29,27 @@
 }
 
 @media (max-width: 950px) {
+  .book {
+    flex-basis: 100%;
+  }
+}
+@media (max-width: 1150px) {
+  .book h2 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1150px) {
+  .book {
+    flex-basis: 33%;
+  }
+}
+@media (max-width: 1150px) {
+  .book {
+    flex-basis: 45%;
+  }
+}
+@media (max-width: 750px) {
   .book {
     flex-basis: 100%;
   }

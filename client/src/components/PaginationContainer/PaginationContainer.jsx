@@ -26,7 +26,7 @@ const PaginationContainer = () => {
   };
   return (
     <>
-      <div>
+      <div className={classes.btnContainer}>
         <button onClick={prev} className={classes.prev}>
           <FiChevronLeft />
         </button>

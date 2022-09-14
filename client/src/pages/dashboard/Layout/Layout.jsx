@@ -10,16 +10,19 @@ import { useLocation } from 'react-router-dom';
 const Layout = () => {
   const { user } = useAppContext();
   const location = useLocation();
-  let xx = location.pathname === '/dashboard/allbooks' ? true : null;
+  let showSearch = location.pathname === '/dashboard/allbooks' ? true : null;
 
   return (
     <>
       <main className={classes.main}>
-        <Sidebar />
+        <div className={`${classes.sidebar} ${classes.show}`}>
+          <Sidebar />
+        </div>
+        {/* <span className={classes.btn}>x</span> */}
 
         <div className={classes.wrapper}>
           <nav className={classes['dashboard-nav']}>
-            {xx && <SearchContainer />}
+            {showSearch && <SearchContainer />}
 
             <div className={classes.info}>
               <span>{user.name}</span>

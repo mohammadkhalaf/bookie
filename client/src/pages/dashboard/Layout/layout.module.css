@@ -12,6 +12,7 @@
 
 .wrapper {
   flex: 1;
+
   min-height: calc(100vh - 3rem);
   display: flex;
   flex-direction: column;
@@ -27,6 +28,7 @@
   font-size: 2rem;
   color: #212529;
   text-transform: capitalize;
+  font-weight: bold;
 }
 .info img {
   background-color: #f0f0f0;
@@ -35,9 +37,25 @@
   width: 4rem;
   margin-left: 2rem;
 }
+
+.btn {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .wrapper {
+    margin-left: 1rem;
+  }
+  .main {
+    padding: 3rem 0.5rem;
+  }
+}
 @media (max-width: 700px) {
   .main {
     padding-left: 1rem;
     padding-right: 1rem;
+  }
+  .info span {
+    font-size: 1.7rem;
   }
 }

@@ -2,7 +2,6 @@
   position: relative;
 }
 .input {
-  width: 30rem;
   height: 4rem;
   background-color: #faf9f9;
   border: none;
@@ -21,4 +20,10 @@
   top: 1rem;
   left: 1rem;
   font-size: 2rem;
+}
+
+@media (max-width: 750px) {
+  .input {
+    max-width: 20rem;
+  }
 }

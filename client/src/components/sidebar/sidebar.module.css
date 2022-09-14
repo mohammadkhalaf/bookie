@@ -60,6 +60,8 @@ li:last-child span {
 @media (max-width: 850px) {
   .sidebar {
     width: 7rem;
+
+    margin: 0;
   }
   .sidebar h1 {
     visibility: hidden;

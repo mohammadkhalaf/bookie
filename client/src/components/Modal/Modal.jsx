@@ -12,12 +12,13 @@ const Modal = ({ updateStatus, pages, hasRead, id, read, setNumb }) => {
   const closeModal = () => {
     updateStatus();
   };
+  const readingDiff = pages - hasRead;
 
   const updatePages = () => {
     if (Number(inputEl.current.value) <= 0) {
       setError('The number should be more than 0');
     } else if (Number(inputEl.current.value) + hasRead > pages) {
-      setError(`number should not  be more than${pages} `);
+      setError(`number should not  be more than${readingDiff} `);
     } else {
       updateReadPages(+inputEl.current.value + hasRead, id);
 

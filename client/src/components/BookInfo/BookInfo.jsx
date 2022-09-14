@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import classes from './Book.module.css';
 import Modal from '../Modal/Modal';
-import Bar from '../Bar/Bar';
+
 import { useAppContext } from '../../context/context';
 
 import { CircularProgressbar, buildStyles } from 'react-circular-progressbar';
@@ -29,11 +29,12 @@ const BookInfo = ({ title, author, pages, _id, hasRead }) => {
         />
       )}
       <div>
-        <p>
-          Great <span>{user.name}</span> you picket <span>{title} </span> a
-          stunning book written by <span>{author}</span>
+        <p className={classes.p}>
+          Great <span>{user.name}</span> you picket
+          <span className={classes.bookInfo}> {title} </span> a stunning book
+          written by <span className={classes.bookInfo}> {author}</span>
         </p>
-        <p>
+        <p className={classes.p}>
           Have you read something today? Let us know how many pages have you
           accomplished
         </p>
@@ -41,18 +42,19 @@ const BookInfo = ({ title, author, pages, _id, hasRead }) => {
         <button className={classes.btn} onClick={updateStatus}>
           update
         </button>
+        <div className={classes.barContainer}>
+          <div className={classes.bar}>
+            <CircularProgressbar
+              value={numOfReadPage}
+              styles={buildStyles({
+                pathTransitionDuration: 0.5,
 
-        <div className={classes.barcontainer}>
-          <CircularProgressbar
-            value={numOfReadPage}
-            styles={buildStyles({
-              pathTransitionDuration: 0.5,
-
-              pathColor: `rgba(251, 133, 188, ${numOfReadPage / 100})`,
-              textColor: '#484c7f',
-            })}
-            text={`${numOfReadPage}%`}
-          />
+                pathColor: `rgba(251, 133, 188, ${numOfReadPage / 100})`,
+                textColor: '#484c7f',
+              })}
+              text={`${numOfReadPage}%`}
+            />
+          </div>
         </div>
       </div>
     </>

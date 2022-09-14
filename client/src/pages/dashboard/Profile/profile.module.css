@@ -30,3 +30,8 @@
 .inputfield {
   height: 3rem;
 }
+@media (max-width: 750px) {
+  .formcontainer {
+    max-width: 37rem;
+  }
+}
