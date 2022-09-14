@@ -1,11 +1,10 @@
 import React, { useRef, useEffect } from 'react';
 import { useAppContext } from '../../context/context';
-import { FaTimes } from 'react-icons/fa';
 
 import classes from './Modal.module.css';
 import { useState } from 'react';
 
-const Modal = ({ updateStatus, pages, hasRead, id, read, setNumb }) => {
+const Modal = ({ updateStatus, pages, hasRead, id, setNumb }) => {
   const [err, setError] = useState('');
   const { updateReadPages } = useAppContext();
   const inputEl = useRef(null);
