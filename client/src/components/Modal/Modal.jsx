@@ -4,7 +4,7 @@ import { useAppContext } from '../../context/context';
 import classes from './Modal.module.css';
 import { useState } from 'react';
 
-const Modal = ({ updateStatus, pages, hasRead, id, setNumb }) => {
+const Modal = ({ updateStatus, pages, hasRead, id }) => {
   const [err, setError] = useState('');
   const { updateReadPages } = useAppContext();
   const inputEl = useRef(null);
