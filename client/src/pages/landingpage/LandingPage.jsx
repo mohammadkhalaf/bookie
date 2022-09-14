@@ -24,7 +24,7 @@ const LandingPage = () => {
               }}
               className={classes.landingbtn}
             >
-              Register/Login{' '}
+              Register/Login
             </button>
           </div>
 

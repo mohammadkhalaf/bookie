@@ -18,7 +18,6 @@ const Layout = () => {
         <div className={`${classes.sidebar} ${classes.show}`}>
           <Sidebar />
         </div>
-        {/* <span className={classes.btn}>x</span> */}
 
         <div className={classes.wrapper}>
           <nav className={classes['dashboard-nav']}>
