@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import moment from 'moment';
 import classes from './Book.module.css';
 
@@ -17,7 +16,6 @@ const Book = ({ title, createdAt, _id, isReading, author, pages, hasRead }) => {
 
   return (
     <>
-      {/* {read && <Modal read={read} />} */}
       <div className={classes.book}>
         <h2>Title: {title}</h2>
         <p>Author: {author}</p>
