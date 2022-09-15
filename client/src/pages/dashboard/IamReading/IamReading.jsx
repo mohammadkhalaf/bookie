@@ -20,7 +20,7 @@ const IamReading = () => {
   ) {
     return (
       <h1 className={classes.header}>
-        You have not read any book yet!!. Grab a book and enjoy reading
+        You are not reading and book currently !!. Grab a book and enjoy reading
       </h1>
     );
   }
